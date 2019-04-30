@@ -7,3 +7,9 @@ html {
 html, body {
   height: 100%;
 }
+
+h1, p {
+  margin: unset;
+  font-size: unset;
+  font-weight: unset;
+}
