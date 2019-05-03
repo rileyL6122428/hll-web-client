@@ -4,6 +4,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ImagesModule } from './shared/images/images.module';
+import { ProfileComponent } from './profile/profile.component';
+import { SiteLogoComponent } from './shared/site-logo/site-logo.component';
 
 @NgModule({
   imports: [
@@ -13,7 +15,9 @@ import { ImagesModule } from './shared/images/images.module';
   ],
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    ProfileComponent,
+    SiteLogoComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

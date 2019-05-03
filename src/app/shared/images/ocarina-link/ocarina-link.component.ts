@@ -1,15 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-ocarina-link',
+  selector: 'hll-ocarina-link',
   templateUrl: './ocarina-link.component.html',
   styleUrls: ['./ocarina-link.component.scss']
 })
-export class OcarinaLinkComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-}
+export class OcarinaLinkComponent { }
