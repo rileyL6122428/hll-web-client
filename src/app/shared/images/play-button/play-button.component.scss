@@ -1,0 +1,15 @@
+svg {
+  height: inherit;
+  width: inherit;
+  border-radius: 1.875rem;
+  padding: 0.125rem;
+
+  &:hover {
+    background-color: #000000;
+    border: 2.3125rem #000000;
+
+    path {
+      fill: #ffffff;
+    }
+  }
+}

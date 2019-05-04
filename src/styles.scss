@@ -8,8 +8,20 @@ html, body {
   height: 100%;
 }
 
-body, h1, p {
+body, h1, h2, h3, h4, h5, h6, p, ul, li, button {
   margin: unset;
+  padding: unset;
   font-size: unset;
   font-weight: unset;
+  outline: unset;
+  background-color: unset;
+  border: unset;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
 }

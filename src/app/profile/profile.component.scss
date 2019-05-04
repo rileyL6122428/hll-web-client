@@ -1,5 +1,40 @@
+header, main {
+  padding: 0 1.6875rem;
+}
+
 header {
   display: flex;
   justify-content: space-between;
-  padding: 0.6875rem;
+  padding-top: 0.6875rem;
+}
+
+.nav {
+  display: flex;
+
+  .divider {
+    margin: 0 10px;
+  }
+}
+
+main {
+  padding: 2.25rem 5rem 0;
+}
+
+.tracks .track {
+  display: flex;
+
+  button {
+    height: 3.375rem;
+    width: 3.375rem;
+
+    hll-play-button {
+      display: block;
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+
+  .track-details .track-header {
+    display: flex;
+  }
 }
