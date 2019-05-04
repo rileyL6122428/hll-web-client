@@ -20,8 +20,14 @@ main {
   padding: 2.25rem 5rem 0;
 }
 
+.tracks-header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .tracks .track {
   display: flex;
+  margin-top: 1.125rem;
 
   button {
     height: 3.375rem;
@@ -36,5 +42,17 @@ main {
 
   .track-details .track-header {
     display: flex;
+  }
+
+  .track-details .tags {
+    display: flex;
+  }
+
+  .track-details .tag {
+    margin-right: .375rem;
+    background-color: #000000;
+    color: #ffffff;
+    padding: .25rem .35rem;
+    border-radius: .45rem;
   }
 }
