@@ -14,44 +14,26 @@
     <button>New Track</button>
   </div>
   <ul class="tracks">
-    <li class="track">
-      <!--
-        SHOW ICON OF RANDOM CHARACTER PLAYING INSTRUMENT ABOVE BUTTON
-        WHEN PLAY BUTTON CLICKED
-      -->
-      <button>
-        <hll-play-button></hll-play-button>
+    <li class="track" *ngFor="let track of tracks">
+      <hll-flute-skullkid *ngIf="track.active"></hll-flute-skullkid>
+      <button
+        (click)="handlePlayBtnClick(track)"
+        (mouseover)="playButton.hovered = true"
+        (mouseout)="playButton.hovered = false"
+        #playButton>
+        <hll-play-button [invertColors]="track.active || playButton.hovered"></hll-play-button>
       </button>
       <div class="track-details">
         <div class="track-header">
-          <h3>Hey, Look, Listen</h3>
-          <p>3:54</p>
+          <h3>{{ track.title }}</h3>
+          <p>{{ track.duration }}</p>
         </div>
         <div class="track-popularity-tags">
-          <p>5 hearts</p>
+          <p>{{ track.likes }} hearts</p>
           <ul class="tags">
-            <li class="tag">video-game</li>
-            <li class="tag">hip hop</li>
-            <li class="tag">mixed</li>
-          </ul>
-        </div>
-      </div>
-    </li>
-
-    <li class="track">
-      <button>
-        <hll-play-button></hll-play-button>
-      </button>
-      <div class="track-details">
-        <div class="track-header">
-          <h3>Boy with Love</h3>
-          <p>4:54</p>
-        </div>
-        <div class="track-popularity-tags">
-          <p>6 hearts</p>
-          <ul class="tags">
-            <li class="tag">Pop</li>
-            <li class="tag">K-Pop</li>
+            <li class="tag" *ngFor="let tag of track.tags">
+              {{ tag }}
+            </li>
           </ul>
         </div>
       </div>

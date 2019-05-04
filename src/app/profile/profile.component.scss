@@ -26,8 +26,16 @@ main {
 }
 
 .tracks .track {
+  position: relative;
   display: flex;
-  margin-top: 1.125rem;
+  margin-top: 3.75rem;
+
+  hll-flute-skullkid {
+    position: absolute;
+    top: -3.4375rem;
+    left: .25rem;
+    width: 2.15rem;
+  }
 
   button {
     height: 3.375rem;
