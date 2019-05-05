@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Track } from '../shared/play-track/play-track.component';
 
 @Component({
   selector: 'hll-profile',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent {
 
-  selected: Track;
+  selected: Track = null;
 
   tracks: Track[] = [
     {
@@ -19,7 +20,6 @@ export class ProfileComponent {
         'hip hop',
         'mixed'
       ],
-      active: false
     },
     {
       title: 'Boy with Love',
@@ -29,31 +29,24 @@ export class ProfileComponent {
         'Pop',
         'K-Pop'
       ],
-      active: false
     }
   ];
 
   handlePlayBtnClick(selected: Track): void {
-    if (this.selected && this.selected === selected) {
-      this.selected.active = !this.selected.active;
-
-    } else if (this.selected && this.selected !== selected) {
-      this.selected.active = false;
-      selected.active = true;
-      this.selected = selected;
-
-    } else if (!this.selected) {
-      selected.active = true;
+    debugger;
+    if (this.selected === selected) {
+      this.selected = null;
+    } else {
       this.selected = selected;
     }
   }
 
 }
 
-export interface Track {
-  title: string;
-  duration: string;
-  likes: number;
-  tags: string[];
-  active: boolean;
-}
+// export interface Track {
+//   title: string;
+//   duration: string;
+//   likes: number;
+//   tags: string[];
+//   active: boolean;
+// }

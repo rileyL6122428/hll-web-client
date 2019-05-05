@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ImagesModule } from './shared/images/images.module';
 import { SiteLogoComponent } from './shared/site-logo/site-logo.component';
+import { PlayTrackComponent } from './shared/play-track/play-track.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { SiteLogoComponent } from './shared/site-logo/site-logo.component';
     AppComponent,
     HomeComponent,
     ProfileComponent,
-    SiteLogoComponent
+    SiteLogoComponent,
+    PlayTrackComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
