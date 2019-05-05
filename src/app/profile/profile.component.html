@@ -17,7 +17,8 @@
     <li class="track" *ngFor="let track of tracks">
       <!-- <hll-flute-skullkid *ngIf="track.active"></hll-flute-skullkid> -->
       <!-- <hll-pipes-dekukid *ngIf="track.active"></hll-pipes-dekukid> -->
-      <hll-drums-goron-link *ngIf="track.active"></hll-drums-goron-link>
+      <!-- <hll-drums-goron-link *ngIf="track.active"></hll-drums-goron-link> -->
+      <hll-guitar-zora-link *ngIf="track.active"></hll-guitar-zora-link>
       <button
         (click)="handlePlayBtnClick(track)"
         (mouseover)="playButton.hovered = true"

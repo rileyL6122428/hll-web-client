@@ -4,6 +4,7 @@ import { PlayButtonComponent } from './play-button/play-button.component';
 import { FluteSkullkidComponent } from './flute-skullkid/flute-skullkid.component';
 import { PipesDekukidComponent } from './pipes-dekukid/pipes-dekukid.component';
 import { DrumsGoronLinkComponent } from './drums-goron-link/drums-goron-link.component';
+import { GuitarZoraLinkComponent } from './guitar-zora-link/guitar-zora-link.component';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { DrumsGoronLinkComponent } from './drums-goron-link/drums-goron-link.com
     FluteSkullkidComponent,
     PipesDekukidComponent,
     DrumsGoronLinkComponent,
+    GuitarZoraLinkComponent,
   ],
   exports: [
     OcarinaLinkComponent,
@@ -19,6 +21,7 @@ import { DrumsGoronLinkComponent } from './drums-goron-link/drums-goron-link.com
     FluteSkullkidComponent,
     PipesDekukidComponent,
     DrumsGoronLinkComponent,
+    GuitarZoraLinkComponent,
   ]
 })
 export class ImagesModule { }
