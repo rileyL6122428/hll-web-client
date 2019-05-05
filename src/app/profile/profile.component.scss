@@ -30,18 +30,25 @@ main {
   display: flex;
   margin-top: 3.75rem;
 
-  hll-flute-skullkid {
+  hll-flute-skullkid, hll-pipes-dekukid, hll-drums-goron-link {
     position: absolute;
+  }
+
+  hll-flute-skullkid {
     top: -3.4375rem;
     left: .25rem;
     width: 2.15rem;
   }
 
   hll-pipes-dekukid {
-    width: 2.9375rem;
-    position: absolute;
     top: -2.4375rem;
     left: -0.625rem;
+    width: 2.9375rem;
+  }
+
+  hll-drums-goron-link {
+    top: -4.8125rem;
+    height: 5.625rem;
   }
 
   button {
