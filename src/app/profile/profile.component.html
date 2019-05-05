@@ -15,32 +15,6 @@
   </div>
   <ul class="tracks">
     <li class="track" *ngFor="let track of tracks">
-      <!-- <hll-flute-skullkid *ngIf="track.active"></hll-flute-skullkid> -->
-      <!-- <hll-pipes-dekukid *ngIf="track.active"></hll-pipes-dekukid> -->
-      <!-- <hll-drums-goron-link *ngIf="track.active"></hll-drums-goron-link> -->
-      <!-- <hll-guitar-zora-link *ngIf="track.active"></hll-guitar-zora-link> -->
-      <!-- <hll-lyre-sheik *ngIf="track.active"></hll-lyre-sheik>
-      <button
-        (click)="handlePlayBtnClick(track)"
-        (mouseover)="playButton.hovered = true"
-        (mouseout)="playButton.hovered = false"
-        #playButton>
-        <hll-play-button [invertColors]="track.active || playButton.hovered"></hll-play-button>
-      </button>
-      <div class="track-details">
-        <div class="track-header">
-          <h3>{{ track.title }}</h3>
-          <p>{{ track.duration }}</p>
-        </div>
-        <div class="track-popularity-tags">
-          <p>{{ track.likes }} hearts</p>
-          <ul class="tags">
-            <li class="tag" *ngFor="let tag of track.tags">
-              {{ tag }}
-            </li>
-          </ul>
-        </div>
-      </div> -->
       <hll-play-track
         [track]="track"
         [active]="track === selected"

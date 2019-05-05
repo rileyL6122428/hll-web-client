@@ -33,7 +33,6 @@ export class ProfileComponent {
   ];
 
   handlePlayBtnClick(selected: Track): void {
-    debugger;
     if (this.selected === selected) {
       this.selected = null;
     } else {
@@ -42,11 +41,3 @@ export class ProfileComponent {
   }
 
 }
-
-// export interface Track {
-//   title: string;
-//   duration: string;
-//   likes: number;
-//   tags: string[];
-//   active: boolean;
-// }
