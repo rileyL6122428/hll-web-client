@@ -30,7 +30,7 @@ main {
   display: flex;
   margin-top: 3.75rem;
 
-  hll-flute-skullkid, hll-pipes-dekukid, hll-drums-goron-link, hll-guitar-zora-link {
+  hll-flute-skullkid, hll-pipes-dekukid, hll-drums-goron-link, hll-guitar-zora-link, hll-lyre-sheik {
     position: absolute;
   }
 
@@ -52,8 +52,15 @@ main {
   }
 
   hll-guitar-zora-link {
-    top: -4.8125rem;
     height: 5.625rem;
+    top: -4.025rem;
+    left: -1.125rem;
+  }
+
+  hll-lyre-sheik {
+    width: 3.25rem;
+    top: -3.9375rem;
+    left: -0.6875rem;
   }
 
   button {
