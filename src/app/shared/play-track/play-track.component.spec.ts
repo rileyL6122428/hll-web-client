@@ -10,7 +10,7 @@ import { LyreSheikComponent } from '../images/lyre-sheik/lyre-sheik.component';
 import { PlayButtonComponent } from '../images/play-button/play-button.component';
 import { By } from '@angular/platform-browser';
 
-fdescribe('PlayTrackComponent', () => {
+describe('PlayTrackComponent', () => {
 
   let component: PlayTrackComponent;
   let fixture: ComponentFixture<PlayTrackComponent>;
@@ -152,6 +152,22 @@ fdescribe('PlayTrackComponent', () => {
         expect(fixture.elementRef.nativeElement.querySelector('hll-lyre-sheik')).toBeTruthy();
       });
 
+    });
+  });
+
+  describe('Track Details', () => {
+    it('renders track-header with title and duration', () => {
+      const trackHeader = fixture.elementRef.nativeElement.querySelector('.track-details .track-header') as HTMLElement;
+      expect(trackHeader.innerText).toContain(track.title);
+      expect(trackHeader.innerText).toContain(track.duration);
+    });
+
+    it('renders track-populatity-tags with heart count and tag list', () => {
+      const trackPopularityAndTags = fixture.elementRef.nativeElement.querySelector('.track-details .track-popularity-tags') as HTMLElement;
+      expect(trackPopularityAndTags.innerText).toContain(`${track.likes} hearts`);
+      track.tags.forEach(tag => {
+        expect(trackPopularityAndTags.innerText).toContain(tag);
+      });
     });
   });
 });
