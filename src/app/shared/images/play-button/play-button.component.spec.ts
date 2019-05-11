@@ -22,4 +22,20 @@ describe('PlayButtonComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('color inversion', () => {
+    it('adds color inversion class to button svg when input invertColors is true', () => {
+      component.invertColors = true;
+      fixture.detectChanges();
+      const buttonSvg = fixture.elementRef.nativeElement.querySelector('svg') as HTMLElement;
+      expect(buttonSvg.classList).toContain('invert-colors');
+    });
+
+    it('removes color inversion class from button svg when input invertColors is false', () => {
+      component.invertColors = false;
+      fixture.detectChanges();
+      const buttonSvg = fixture.elementRef.nativeElement.querySelector('svg') as HTMLElement;
+      expect(buttonSvg.classList).not.toContain('invert-colors');
+    });
+  });
 });
