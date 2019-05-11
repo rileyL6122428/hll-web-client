@@ -19,6 +19,7 @@ export class PlayTrackComponent {
   }
 
   hanldePlayBtnClick(): void {
+    this.active = true;
     this.playBtnClick.emit(this.track);
     this.setNextIcon();
   }
