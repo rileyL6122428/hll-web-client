@@ -35,5 +35,4 @@ export interface Track {
   duration: string;
   likes: number;
   tags: string[];
-  // active: boolean;
 }

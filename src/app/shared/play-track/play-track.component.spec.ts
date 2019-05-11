@@ -53,12 +53,12 @@ fdescribe('PlayTrackComponent', () => {
 
   describe('Play Button', () => {
 
-    let playButtonElement;
-    let playIcon;
+    let playButtonElement: HTMLButtonElement;
+    let playIcon: PlayButtonComponent;
 
     beforeEach(() => {
-      playButtonElement = fixture.elementRef.nativeElement.querySelector('button') as HTMLButtonElement;
-      playIcon = fixture.debugElement.query(By.css('hll-play-button')).componentInstance as PlayButtonComponent;
+      playButtonElement = fixture.elementRef.nativeElement.querySelector('button');
+      playIcon = fixture.debugElement.query(By.css('hll-play-button')).componentInstance;
     });
 
 
@@ -84,6 +84,74 @@ fdescribe('PlayTrackComponent', () => {
       fixture.detectChanges();
 
       expect(playIcon.invertColors).toBe(true);
+    });
+
+    describe('character icons', () => {
+      it('sets flute-skull-kid as play button icon when next random number between 0 and .2', () => {
+        spyOn(Math, 'random').and.returnValue(.1);
+
+        playButtonElement.dispatchEvent(new Event('click'));
+        fixture.detectChanges();
+
+        expect(fixture.elementRef.nativeElement.querySelector('hll-flute-skullkid')).toBeTruthy();
+        expect(fixture.elementRef.nativeElement.querySelector('hll-pipes-dekukid')).toBeFalsy();
+        expect(fixture.elementRef.nativeElement.querySelector('hll-drums-goron-link')).toBeFalsy();
+        expect(fixture.elementRef.nativeElement.querySelector('hll-guitar-zora-link')).toBeFalsy();
+        expect(fixture.elementRef.nativeElement.querySelector('hll-lyre-sheik')).toBeFalsy();
+      });
+
+      it('sets hll-pipes-dekukid as play button icon when next random number between .2 and .4', () => {
+        spyOn(Math, 'random').and.returnValue(.3);
+
+        playButtonElement.dispatchEvent(new Event('click'));
+        fixture.detectChanges();
+
+        expect(fixture.elementRef.nativeElement.querySelector('hll-flute-skullkid')).toBeFalsy();
+        expect(fixture.elementRef.nativeElement.querySelector('hll-pipes-dekukid')).toBeTruthy();
+        expect(fixture.elementRef.nativeElement.querySelector('hll-drums-goron-link')).toBeFalsy();
+        expect(fixture.elementRef.nativeElement.querySelector('hll-guitar-zora-link')).toBeFalsy();
+        expect(fixture.elementRef.nativeElement.querySelector('hll-lyre-sheik')).toBeFalsy();
+      });
+
+      it('sets hll-drums-goron-link as play button icon when next random number between .4 and .6', () => {
+        spyOn(Math, 'random').and.returnValue(.5);
+
+        playButtonElement.dispatchEvent(new Event('click'));
+        fixture.detectChanges();
+
+        expect(fixture.elementRef.nativeElement.querySelector('hll-flute-skullkid')).toBeFalsy();
+        expect(fixture.elementRef.nativeElement.querySelector('hll-pipes-dekukid')).toBeFalsy();
+        expect(fixture.elementRef.nativeElement.querySelector('hll-drums-goron-link')).toBeTruthy();
+        expect(fixture.elementRef.nativeElement.querySelector('hll-guitar-zora-link')).toBeFalsy();
+        expect(fixture.elementRef.nativeElement.querySelector('hll-lyre-sheik')).toBeFalsy();
+      });
+
+      it('sets hll-guitar-zora-link as play button icon when next random number between .6 and .8', () => {
+        spyOn(Math, 'random').and.returnValue(.7);
+
+        playButtonElement.dispatchEvent(new Event('click'));
+        fixture.detectChanges();
+
+        expect(fixture.elementRef.nativeElement.querySelector('hll-flute-skullkid')).toBeFalsy();
+        expect(fixture.elementRef.nativeElement.querySelector('hll-pipes-dekukid')).toBeFalsy();
+        expect(fixture.elementRef.nativeElement.querySelector('hll-drums-goron-link')).toBeFalsy();
+        expect(fixture.elementRef.nativeElement.querySelector('hll-guitar-zora-link')).toBeTruthy();
+        expect(fixture.elementRef.nativeElement.querySelector('hll-lyre-sheik')).toBeFalsy();
+      });
+
+      it('sets hll-lyre-sheik as play button icon when next random number between .8 and 1', () => {
+        spyOn(Math, 'random').and.returnValue(.9);
+
+        playButtonElement.dispatchEvent(new Event('click'));
+        fixture.detectChanges();
+
+        expect(fixture.elementRef.nativeElement.querySelector('hll-flute-skullkid')).toBeFalsy();
+        expect(fixture.elementRef.nativeElement.querySelector('hll-pipes-dekukid')).toBeFalsy();
+        expect(fixture.elementRef.nativeElement.querySelector('hll-drums-goron-link')).toBeFalsy();
+        expect(fixture.elementRef.nativeElement.querySelector('hll-guitar-zora-link')).toBeFalsy();
+        expect(fixture.elementRef.nativeElement.querySelector('hll-lyre-sheik')).toBeTruthy();
+      });
+
     });
   });
 });
