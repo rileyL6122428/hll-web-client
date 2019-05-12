@@ -7,6 +7,7 @@ import { PlayTrackComponent } from '../shared/play-track/play-track.component';
 import { AuthService } from '../shared/auth/auth.service';
 
 describe('ProfileComponent', () => {
+
   let component: ProfileComponent;
   let fixture: ComponentFixture<ProfileComponent>;
 
@@ -36,5 +37,16 @@ describe('ProfileComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('Header', () => {
+    it('clicking the log out link tells the auth service to log out', () => {
+      const logOutLink = fixture.elementRef.nativeElement.querySelector('#logout') as HTMLElement;
+      logOutLink.dispatchEvent(new Event('click'));
+      fixture.detectChanges();
+
+      const authService = TestBed.get(AuthService);
+      expect(authService.logout).toHaveBeenCalled();
+    });
   });
 });
