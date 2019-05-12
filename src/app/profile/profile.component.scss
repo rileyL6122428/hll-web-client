@@ -6,7 +6,16 @@ header {
   display: flex;
   justify-content: space-between;
   padding-top: 0.6875rem;
+
+  #logout {
+    text-decoration: underline;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
+
 
 .nav {
   display: flex;

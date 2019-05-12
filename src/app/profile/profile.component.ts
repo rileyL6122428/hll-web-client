@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Track } from '../shared/play-track/play-track.component';
+import { AuthService } from '../shared/auth/auth.service';
 
 @Component({
   selector: 'hll-profile',
@@ -7,6 +8,10 @@ import { Track } from '../shared/play-track/play-track.component';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
+
+  constructor(
+    private auth: AuthService
+  ) { }
 
   selected: Track = null;
 
@@ -38,6 +43,10 @@ export class ProfileComponent {
     } else {
       this.selected = selected;
     }
+  }
+
+  logout(): void {
+    this.auth.logout();
   }
 
 }
