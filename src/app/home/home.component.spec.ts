@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng-mocks';
 import { HomeComponent } from './home.component';
 import { SiteLogoComponent } from '../shared/site-logo/site-logo.component';
+import { AuthService } from '../shared/auth/auth.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -12,6 +13,12 @@ describe('HomeComponent', () => {
       declarations: [
         MockComponent(SiteLogoComponent),
         HomeComponent
+      ],
+      providers: [
+        {
+          provide: AuthService,
+          useValue: jasmine.createSpyObj('AuthService', ['login'])
+        }
       ]
     })
     .compileComponents();
