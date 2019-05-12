@@ -33,4 +33,15 @@ describe('HomeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('Site Logo', () => {
+    it('clicking the site logo tells the auth service to login', () => {
+      const siteLogoElement = fixture.elementRef.nativeElement.querySelector('hll-site-logo') as HTMLElement;
+      siteLogoElement.dispatchEvent(new Event('click'));
+      fixture.detectChanges();
+
+      const authService = TestBed.get(AuthService);
+      expect(authService.login).toHaveBeenCalled();
+    });
+  });
 });
