@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PlayTrackComponent, Track } from './play-track.component';
 import { FluteSkullkidComponent } from '../images/flute-skullkid/flute-skullkid.component';
 import { MockComponent } from 'ng-mocks';
