@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../shared/auth/auth.service';
 
 @Component({
   selector: 'hll-home',
@@ -7,8 +8,12 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
+  constructor(
+    private auth: AuthService
+  ) { }
+
   authenticate(): void {
-    alert('AUTHENTICATION NOT YET IMPLEMENTED');
+    this.auth.login();
   }
 
 }
