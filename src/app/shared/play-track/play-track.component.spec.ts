@@ -86,7 +86,7 @@ describe('PlayTrackComponent', () => {
     });
 
     describe('character icons', () => {
-      it('sets flute-skull-kid as play button icon when next random number between 0 and .2', () => {
+      it('sets flute-skull-kid as play button icon when play button clicked and next random number between 0 and .2', () => {
         spyOn(Math, 'random').and.returnValue(.1);
 
         playButtonElement.dispatchEvent(new Event('click'));
@@ -99,7 +99,7 @@ describe('PlayTrackComponent', () => {
         expect(fixture.elementRef.nativeElement.querySelector('hll-lyre-sheik')).toBeFalsy();
       });
 
-      it('sets hll-pipes-dekukid as play button icon when next random number between .2 and .4', () => {
+      it('sets hll-pipes-dekukid as play button icon when play button clicked and next random number between .2 and .4', () => {
         spyOn(Math, 'random').and.returnValue(.3);
 
         playButtonElement.dispatchEvent(new Event('click'));
@@ -112,7 +112,7 @@ describe('PlayTrackComponent', () => {
         expect(fixture.elementRef.nativeElement.querySelector('hll-lyre-sheik')).toBeFalsy();
       });
 
-      it('sets hll-drums-goron-link as play button icon when next random number between .4 and .6', () => {
+      it('sets hll-drums-goron-link as play button icon when play button clicked and next random number between .4 and .6', () => {
         spyOn(Math, 'random').and.returnValue(.5);
 
         playButtonElement.dispatchEvent(new Event('click'));
@@ -125,7 +125,7 @@ describe('PlayTrackComponent', () => {
         expect(fixture.elementRef.nativeElement.querySelector('hll-lyre-sheik')).toBeFalsy();
       });
 
-      it('sets hll-guitar-zora-link as play button icon when next random number between .6 and .8', () => {
+      it('sets hll-guitar-zora-link as play button icon when play button clicked and next random number between .6 and .8', () => {
         spyOn(Math, 'random').and.returnValue(.7);
 
         playButtonElement.dispatchEvent(new Event('click'));
@@ -138,7 +138,7 @@ describe('PlayTrackComponent', () => {
         expect(fixture.elementRef.nativeElement.querySelector('hll-lyre-sheik')).toBeFalsy();
       });
 
-      it('sets hll-lyre-sheik as play button icon when next random number between .8 and 1', () => {
+      it('sets hll-lyre-sheik as play button icon when play button clicked and next random number between .8 and 1', () => {
         spyOn(Math, 'random').and.returnValue(.9);
 
         playButtonElement.dispatchEvent(new Event('click'));
