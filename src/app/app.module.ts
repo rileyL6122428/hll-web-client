@@ -8,6 +8,7 @@ import { ImagesModule } from './shared/images/images.module';
 import { SiteLogoComponent } from './shared/site-logo/site-logo.component';
 import { PlayTrackComponent } from './shared/play-track/play-track.component';
 import { AuthModule } from './shared/auth/auth.module';
+import { Error404Component } from './error404/error404.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { AuthModule } from './shared/auth/auth.module';
     HomeComponent,
     ProfileComponent,
     SiteLogoComponent,
-    PlayTrackComponent
+    PlayTrackComponent,
+    Error404Component
   ],
   providers: [],
   bootstrap: [AppComponent]
