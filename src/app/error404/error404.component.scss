@@ -1,4 +1,20 @@
+main {
+  display: flex;
+  justify-content: center;
+  margin-top: calc(50vh - 6.169375rem);
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+p {
+  font-size: 1.15rem;
+}
+
 hll-mask-salesman {
   display: block;
   width: 16rem;
+  height: 12.33875rem;
 }
