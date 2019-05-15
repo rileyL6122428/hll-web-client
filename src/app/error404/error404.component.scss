@@ -18,3 +18,9 @@ hll-mask-salesman {
   width: 16rem;
   height: 12.33875rem;
 }
+
+.error-message, hll-mask-salesman {
+  &:hover {
+    cursor: pointer;
+  }
+}
