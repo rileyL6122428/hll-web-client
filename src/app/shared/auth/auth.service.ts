@@ -15,7 +15,7 @@ export class AuthService {
     clientID: '8s0svZVEfS2xCNw82ivgGr3YFU4OQx7n',
     domain: 'dev-kfaat8-8.auth0.com',
     responseType: 'token id_token',
-    redirectUri: 'http://localhost:4200/#/profile',
+    redirectUri: 'http://localhost:4200/#/',
     scope: 'openid profile'
   });
 
@@ -40,9 +40,9 @@ export class AuthService {
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        window.location.hash = '';
+        // window.location.hash = '';
         this.localLogin(authResult);
-        this.router.navigate(['/profile']);
+        // this.router.navigate(['/']);
       } else if (err) {
         this.router.navigate(['/system-error']);
         console.log(err);

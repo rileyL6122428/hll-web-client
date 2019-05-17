@@ -15,7 +15,6 @@ export class Error404Component {
   ) { }
 
   goToDefaultPage(): void {
-    debugger;
     if (this.auth.isAuthenticated) {
       this.router.navigateByUrl('/profile');
     } else {

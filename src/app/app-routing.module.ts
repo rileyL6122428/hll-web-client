@@ -5,8 +5,11 @@ import { ProfileComponent } from './profile/profile.component';
 import { Error404Component } from './error404/error404.component';
 
 const routes: Routes = [
+  { path: 'profile', pathMatch: 'full', component: ProfileComponent },
+  { path: 'access_token', pathMatch: 'prefix', component: ProfileComponent },
+  { path: 'access_token', pathMatch: 'full', component: ProfileComponent },
+  // { path: '', component: ProfileComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'profile', component: ProfileComponent },
   { path: 'error-404', component: Error404Component },
   { path: '**', redirectTo: 'error-404' },
 ];
