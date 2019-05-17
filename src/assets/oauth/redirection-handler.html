@@ -221,4 +221,39 @@
       <p><em>redirecting...</em></p>
     </main>
   </body>
+
+  <script>
+    setTimeout(function() {
+      const authParams = getHashQueryParams();
+      if (authParams) {
+        addToSessionStorage(authParams);
+        window.location.hash = '';
+      } else {
+        // goto unauthorized
+      }
+    }, 2000);
+
+    function getHashQueryParams() {
+      if (!window.location.hash) { return null; }
+
+      const queryParams = {};
+      window.location.hash
+        .substr(1)
+        .split('&')
+        .forEach((queryTupleStr) => {
+          const keyIndex = 0;
+          const valueIndex = 1;
+          const tuple = queryTupleStr.split('=');
+          queryParams[tuple[keyIndex]] = tuple[valueIndex];
+        });
+
+      return queryParams;
+    }
+
+    function addToSessionStorage(authParams) {
+      Object.keys(authParams).forEach(paramName => {
+        sessionStorage.setItem(paramName, authParams[paramName]);
+      });
+    }
+  </script>
 </html>

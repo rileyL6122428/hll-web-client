@@ -15,7 +15,7 @@ export class AuthService {
     clientID: '8s0svZVEfS2xCNw82ivgGr3YFU4OQx7n',
     domain: 'dev-kfaat8-8.auth0.com',
     responseType: 'token id_token',
-    redirectUri: 'http://localhost:4200/#/',
+    redirectUri: 'http://localhost:4200/assets/oauth/redirection-handler.html',
     scope: 'openid profile'
   });
 
