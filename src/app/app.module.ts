@@ -9,6 +9,7 @@ import { SiteLogoComponent } from './shared/site-logo/site-logo.component';
 import { PlayTrackComponent } from './shared/play-track/play-track.component';
 import { AuthModule } from './shared/auth/auth.module';
 import { Error404Component } from './error404/error404.component';
+import { Error403Component } from './error403/error403.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { Error404Component } from './error404/error404.component';
     ProfileComponent,
     SiteLogoComponent,
     PlayTrackComponent,
-    Error404Component
+    Error404Component,
+    Error403Component
   ],
   providers: [],
   bootstrap: [AppComponent]

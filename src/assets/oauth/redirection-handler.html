@@ -2,6 +2,7 @@
 <html>
   <head>
     <link rel="stylesheet" href="redirection-handler.css" />
+    <script src="redirection-handler.js" type="text/javascript"></script>
   </head>
   <body>
     <main>
@@ -222,14 +223,15 @@
     </main>
   </body>
 
-  <script>
+  <!-- <script>
     setTimeout(function() {
       const authParams = getHashQueryParams();
       if (authParams) {
         addToSessionStorage(authParams);
         window.location.hash = '';
+        window.location.href = "http://localhost:4200/#/profile";
       } else {
-        // goto unauthorized
+        window.location.href = "http://localhost:4200/#/error-403";
       }
     }, 2000);
 
@@ -247,6 +249,8 @@
           queryParams[tuple[keyIndex]] = tuple[valueIndex];
         });
 
+        queryParams['expires_at'] = new Date().getTime() + Number(queryParams['expires_in']) * 1000;
+
       return queryParams;
     }
 
@@ -255,5 +259,5 @@
         sessionStorage.setItem(paramName, authParams[paramName]);
       });
     }
-  </script>
+  </script> -->
 </html>
