@@ -15,12 +15,6 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent
-      ],
-      providers: [
-        {
-          provide: AuthService,
-          useValue: jasmine.createSpyObj('AuthService', ['handleAuthentication'])
-        }
       ]
     }).compileComponents();
   }));
@@ -33,12 +27,5 @@ describe('AppComponent', () => {
 
   it('should create the app', () => {
     expect(app).toBeTruthy();
-  });
-
-  describe('Initialization', () => {
-    it('tells AuthService to handle authentication', () => {
-      const authService = TestBed.get(AuthService);
-      expect(authService.handleAuthentication).toHaveBeenCalled();
-    });
   });
 });

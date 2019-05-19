@@ -25,19 +25,6 @@ export class AuthService {
     this.auth0.authorize();
   }
 
-  public handleAuthentication(): void {
-    // this.auth0.parseHash((err, authResult) => {
-    //   if (authResult && authResult.accessToken && authResult.idToken) {
-    //     window.location.hash = '';
-    //     this.localLogin(authResult);
-    //     this.router.navigate(['/']);
-    //   } else if (err) {
-    //     this.router.navigate(['/system-error']);
-    //     console.log(err);
-    //   }
-    // });
-  }
-
   private localLogin(authResult): void {
     // Set the time that the access token will expire at
     this.accessToken = authResult.accessToken;
