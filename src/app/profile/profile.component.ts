@@ -37,10 +37,6 @@ export class ProfileComponent {
     }
   ];
 
-  ngOnInit(): void {
-    console.log('fired');
-  }
-
   handlePlayBtnClick(selected: Track): void {
     if (this.selected === selected) {
       this.selected = null;
