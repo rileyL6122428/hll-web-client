@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/auth/auth.service';
-import { ErrorBaseComponent } from '../shared/error-base/error-base.component';
+import { BaseErrorComponent } from '../shared/error-base/base-error.component';
 
 @Component({
   selector: 'hll-error404',
-  templateUrl: '../shared/error-base/error-base.component.html',
-  styleUrls: ['../shared/error-base/error-base.component.scss']
+  templateUrl: '../shared/error-base/base-error.component.html',
+  styleUrls: ['../shared/error-base/base-error.component.scss']
 })
-export class Error404Component extends ErrorBaseComponent {
+export class Error404Component extends BaseErrorComponent {
 
   errorCode = 404;
 

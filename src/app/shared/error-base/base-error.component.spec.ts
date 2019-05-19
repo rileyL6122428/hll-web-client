@@ -7,7 +7,7 @@ import { Type } from '@angular/core';
 
 export const errorBaseComponentSpecs = <T>(ComponentClass: Type<T>, otherProviders = []) => {
 
-  describe(`ErrorBase:${ComponentClass.name}`, () => {
+  describe(`BaseErrorComponent:${ComponentClass.name}`, () => {
 
     let component: T;
     let fixture: ComponentFixture<T>;

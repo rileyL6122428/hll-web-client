@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 
-export abstract class ErrorBaseComponent {
+export abstract class BaseErrorComponent {
 
   abstract errorCode: number;
 
