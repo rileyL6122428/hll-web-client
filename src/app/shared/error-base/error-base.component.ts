@@ -1,9 +1,9 @@
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 
-export class ErrorBaseComponent {
+export abstract class ErrorBaseComponent {
 
-  protected errorCode: number;
+  abstract errorCode: number;
 
   constructor(
     private router: Router,
