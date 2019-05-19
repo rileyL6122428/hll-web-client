@@ -6,7 +6,7 @@ import { Error404Component } from './error404/error404.component';
 import { Error403Component } from './error403/error403.component';
 
 const routes: Routes = [
-  { path: 'profile', pathMatch: 'full', component: ProfileComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: 'home', component: HomeComponent },
   { path: 'error-403', component: Error403Component },
   { path: 'error-404', component: Error404Component },
