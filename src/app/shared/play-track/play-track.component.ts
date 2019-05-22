@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'hll-play-track',
@@ -9,8 +9,11 @@ export class PlayTrackComponent {
 
   @Input() track: Track;
   @Output() playBtnClick: EventEmitter<Track>;
-  @Input() active: boolean;
+  private _active: boolean;
   playIconNumber: number;
+
+  @ViewChild('auidoPlayer')
+  audio: { nativeElement: HTMLAudioElement };
 
   constructor() {
     this.playBtnClick = new EventEmitter<Track>();
@@ -26,6 +29,36 @@ export class PlayTrackComponent {
 
   setNextIcon(): void {
     this.playIconNumber = Math.floor(Math.random() * 5);
+  }
+
+  @Input()
+  set active(active: boolean) {
+    this._active = active;
+    if (active) {
+      this.play();
+    } else {
+      this.pause();
+    }
+  }
+
+  get active(): boolean {
+    return this._active;
+  }
+
+  play(): void {
+    if (this.audioElement) {
+      this.audioElement.play();
+    }
+  }
+
+  pause(): void {
+    if (this.audioElement) {
+      this.audioElement.pause();
+    }
+  }
+
+  private get audioElement(): HTMLAudioElement {
+    return this.audio ? this.audio.nativeElement : null;
   }
 
 }
