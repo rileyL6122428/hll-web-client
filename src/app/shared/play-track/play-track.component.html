@@ -29,9 +29,19 @@
         </li>
       </ul>
     </div>
+
+    <div class="play-progress-indicator">
+      <div
+        class="play-progress-fill"
+        [ngStyle]="progressIndicatorStyles">
+      </div>
+    </div>
   </div>
 </div>
 
-<audio #auidoPlayer src="http://localhost:8080/api/public/stream-audio/sample">
+<audio
+  #auidoPlayer
+  src="http://localhost:8080/api/public/stream-audio/sample"
+  (timeupdate)="onTimeUpdate()">
   Your browser does not support the <code>audio</code> element.
 </audio>

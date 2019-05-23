@@ -11,6 +11,7 @@ export class PlayTrackComponent {
   @Output() playBtnClick: EventEmitter<Track>;
   private _active: boolean;
   playIconNumber: number;
+  trackCompletedPercentage = 0;
 
   @ViewChild('auidoPlayer')
   audio: { nativeElement: HTMLAudioElement };
@@ -59,6 +60,16 @@ export class PlayTrackComponent {
 
   private get audioElement(): HTMLAudioElement {
     return this.audio ? this.audio.nativeElement : null;
+  }
+
+  onTimeUpdate(): void {
+    this.trackCompletedPercentage = (this.audioElement.currentTime / this.audioElement.duration) * 100;
+  }
+
+  get progressIndicatorStyles() {
+    return {
+      width: `${this.trackCompletedPercentage}%`
+    };
   }
 
 }
