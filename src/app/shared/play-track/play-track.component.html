@@ -1,10 +1,26 @@
 <div class="track-container">
   <ng-container *ngIf="active">
-    <hll-flute-skullkid *ngIf="playIconNumber === 0"></hll-flute-skullkid>
-    <hll-pipes-dekukid *ngIf="playIconNumber === 1"></hll-pipes-dekukid>
-    <hll-drums-goron-link *ngIf="playIconNumber === 2"></hll-drums-goron-link>
-    <hll-guitar-zora-link *ngIf="playIconNumber === 3"></hll-guitar-zora-link>
-    <hll-lyre-sheik *ngIf="playIconNumber === 4"></hll-lyre-sheik>
+    <!-- *ngIf="playIconNumber === 0" -->
+    <hll-flute-skullkid
+    *ngIf="playIconNumber === 0"
+    [@fadeInOut]>
+    </hll-flute-skullkid>
+    <hll-pipes-dekukid
+      *ngIf="playIconNumber === 1"
+      [@fadeInOut]>
+    </hll-pipes-dekukid>
+    <hll-drums-goron-link
+      *ngIf="playIconNumber === 2"
+      [@fadeInOut]>
+    </hll-drums-goron-link>
+    <hll-guitar-zora-link
+      *ngIf="playIconNumber === 3"
+      [@fadeInOut]>
+    </hll-guitar-zora-link>
+    <hll-lyre-sheik
+      *ngIf="playIconNumber === 4"
+      [@fadeInOut]>
+    </hll-lyre-sheik>
   </ng-container>
 
   <button
@@ -30,7 +46,9 @@
       </ul>
     </div>
 
-    <div class="play-progress-indicator">
+    <input id="volume-slider" type="range" min="0" max="1" step="0.05" value="1" />
+
+    <div class="play-progress-indicator" #progressIndicator (click)="testProgressIndicatorClick($event, progressIndicator)">
       <div
         class="play-progress-fill"
         [ngStyle]="progressIndicatorStyles">

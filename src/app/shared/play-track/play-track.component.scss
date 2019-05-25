@@ -1,38 +1,51 @@
+$play-button-margin-top: 2rem;
+
+// @keyframes fadein {
+//     from { opacity: 0; }
+//     to   { opacity: 1; }
+// }
+
+// @keyframes fadeout {
+//     from { opacity: 0; }
+//     to   { opacity: 1; }
+// }
+
 .track-container {
   position: relative;
   display: flex;
 
   hll-flute-skullkid, hll-pipes-dekukid, hll-drums-goron-link, hll-guitar-zora-link, hll-lyre-sheik {
     position: absolute;
+    // animation: fadein 1s, fadeout 1s;
   }
 
   hll-flute-skullkid {
-    top: -3.4375rem;
-    left: .25rem;
     width: 2.15rem;
+    top: -3.6375rem + $play-button-margin-top;
+    left: .25rem;
   }
 
   hll-pipes-dekukid {
-    top: -2.4375rem;
-    left: -0.625rem;
     width: 2.9375rem;
+    top: -2.6775rem + $play-button-margin-top;
+    left: -0.625rem;
   }
 
   hll-drums-goron-link {
     height: 5.625rem;
-    top: -4.4125rem;
+    top: -4.6125rem + $play-button-margin-top;
     left: .5rem;
   }
 
   hll-guitar-zora-link {
     height: 5.625rem;
-    top: -4.025rem;
+    top: -4.025rem + $play-button-margin-top;
     left: -1.125rem;
   }
 
   hll-lyre-sheik {
     width: 3.25rem;
-    top: -3.9375rem;
+    top: -4.1375rem + $play-button-margin-top;
     left: -0.6875rem;
   }
 
@@ -44,6 +57,7 @@
       display: block;
       width: 3rem;
       height: 3rem;
+      margin-top: $play-button-margin-top;
     }
   }
 

@@ -1,9 +1,24 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { trigger, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'hll-play-track',
   templateUrl: './play-track.component.html',
-  styleUrls: ['./play-track.component.scss']
+  styleUrls: ['./play-track.component.scss'],
+  animations: [
+    // THE FOLLOWING ANIMATION WAS ADAPTED FROM:
+    //   https://stackoverflow.com/questions/46234971/angular-4-animation-not-working
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateX(-40px)' }),
+        animate(600, style({ opacity: 1, transform: 'translateX(0)' }))
+      ]),
+      transition(':leave', [
+        style({ opacity: 1, transform: 'translateX(0)' }),
+        animate(600, style({ opacity: 0, transform: 'translateX(-40px)' }))
+      ])
+    ])
+  ]
 })
 export class PlayTrackComponent {
 
@@ -64,6 +79,14 @@ export class PlayTrackComponent {
 
   onTimeUpdate(): void {
     this.trackCompletedPercentage = (this.audioElement.currentTime / this.audioElement.duration) * 100;
+  }
+
+  testProgressIndicatorClick(event, test): void {
+    debugger;
+    // test.getBoundingClientRect() = THE OFFSET FROM LET BORDER OF BROWSER
+    // event.clientX -> mouse offset from left border of browser
+    console.log(event, test);
+
   }
 
   get progressIndicatorStyles() {
