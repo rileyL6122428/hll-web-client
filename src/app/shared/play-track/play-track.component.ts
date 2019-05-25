@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, OnInit } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 
 @Component({
@@ -34,16 +34,18 @@ export class PlayTrackComponent {
   constructor() {
     this.playBtnClick = new EventEmitter<Track>();
     this.active = false;
-    this.playIconNumber = -1;
+  }
+
+  ngOnInit(): void {
+    this.setCharacterIcon();
   }
 
   hanldePlayBtnClick(): void {
     this.active = true;
     this.playBtnClick.emit(this.track);
-    this.setNextIcon();
   }
 
-  setNextIcon(): void {
+  setCharacterIcon(): void {
     this.playIconNumber = Math.floor(Math.random() * 5);
   }
 
