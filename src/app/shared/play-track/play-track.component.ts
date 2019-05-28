@@ -31,6 +31,9 @@ export class PlayTrackComponent {
   @ViewChild('auidoPlayer')
   audio: { nativeElement: HTMLAudioElement };
 
+  @ViewChild('#volume-slider')
+  volumeSlider: HTMLInputElement;
+
   constructor() {
     this.playBtnClick = new EventEmitter<Track>();
     this.active = false;
@@ -81,6 +84,14 @@ export class PlayTrackComponent {
 
   onTimeUpdate(): void {
     this.trackCompletedPercentage = (this.audioElement.currentTime / this.audioElement.duration) * 100;
+  }
+
+  setVolume(nextVolume: string | number): void {
+    if (typeof nextVolume === 'string') {
+      this.audioElement.volume = Number(nextVolume);
+    } else {
+      this.audioElement.volume = nextVolume;
+    }
   }
 
   testProgressIndicatorClick(event, test): void {
