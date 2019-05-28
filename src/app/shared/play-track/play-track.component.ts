@@ -20,19 +20,14 @@ import { trigger, style, animate, transition } from '@angular/animations';
     ])
   ]
 })
-export class PlayTrackComponent {
+export class PlayTrackComponent implements OnInit {
 
   @Input() track: Track;
   @Output() playBtnClick: EventEmitter<Track>;
+  @ViewChild('auidoPlayer') audioPlayer: { nativeElement: HTMLAudioElement };
   private _active: boolean;
   playIconNumber: number;
   trackCompletedPercentage = 0;
-
-  @ViewChild('auidoPlayer')
-  audio: { nativeElement: HTMLAudioElement };
-
-  @ViewChild('#volume-slider')
-  volumeSlider: HTMLInputElement;
 
   constructor() {
     this.playBtnClick = new EventEmitter<Track>();
@@ -79,7 +74,7 @@ export class PlayTrackComponent {
   }
 
   private get audioElement(): HTMLAudioElement {
-    return this.audio ? this.audio.nativeElement : null;
+    return this.audioPlayer ? this.audioPlayer.nativeElement : null;
   }
 
   onTimeUpdate(): void {
