@@ -94,12 +94,11 @@ export class PlayTrackComponent {
     }
   }
 
-  testProgressIndicatorClick(event, test): void {
-    debugger;
-    // test.getBoundingClientRect() = THE OFFSET FROM LET BORDER OF BROWSER
-    // event.clientX -> mouse offset from left border of browser
-    console.log(event, test);
-
+  selectCurrentTrackTime(mouseX: number, progressBarDOMRect: DOMRect): void {
+    if (this.audioElement) {
+      const currentTimeDecimal = (mouseX - progressBarDOMRect.x) / progressBarDOMRect.width;
+      this.audioElement.currentTime = currentTimeDecimal * this.audioElement.duration;
+    }
   }
 
   get progressIndicatorStyles() {

@@ -54,7 +54,10 @@
       value="1"
       (change)="setVolume($event.target.value)"/>
 
-    <div class="play-progress-indicator" #progressIndicator (click)="testProgressIndicatorClick($event, progressIndicator)">
+    <div
+      class="play-progress-indicator"
+      (click)="selectCurrentTrackTime($event.clientX, progressIndicator.getBoundingClientRect())"
+      #progressIndicator>
       <div
         class="play-progress-fill"
         [ngStyle]="progressIndicatorStyles">
