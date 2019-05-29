@@ -95,7 +95,32 @@ describe('PlayTrackComponent', () => {
 
       playButtonElement.dispatchEvent(new Event('click'));
       fixture.detectChanges();
+
       expect(_getPlayIcon()).toBeTruthy();
+    });
+
+    it('tells the audio element to play when clicked', () => {
+      const audioElement = _getAudioElement();
+      spyOn(audioElement, 'play');
+
+      playButtonElement.dispatchEvent(new Event('click'));
+      fixture.detectChanges();
+
+      expect(audioElement.play).toHaveBeenCalled();
+    });
+
+    it('tells the audio element to pause when clicked twice', () => {
+      const audioElement = _getAudioElement();
+      spyOn(audioElement, 'play');
+      spyOn(audioElement, 'pause');
+
+      playButtonElement.dispatchEvent(new Event('click'));
+      fixture.detectChanges();
+
+      playButtonElement.dispatchEvent(new Event('click'));
+      fixture.detectChanges();
+
+      expect(audioElement.pause).toHaveBeenCalled();
     });
 
     function _getPlayIcon() {
@@ -104,6 +129,10 @@ describe('PlayTrackComponent', () => {
 
     function _getPauseIcon() {
       return fixture.debugElement.query(By.css('hll-pause-button')).componentInstance;
+    }
+
+    function _getAudioElement(): HTMLAudioElement {
+      return fixture.elementRef.nativeElement.querySelector('audio');
     }
   });
 
