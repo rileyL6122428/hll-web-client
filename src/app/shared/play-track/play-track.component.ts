@@ -39,7 +39,7 @@ export class PlayTrackComponent implements OnInit {
   }
 
   hanldePlayBtnClick(): void {
-    this.active = true;
+    this.active = !this.active;
     this.playBtnClick.emit(this.track);
   }
 

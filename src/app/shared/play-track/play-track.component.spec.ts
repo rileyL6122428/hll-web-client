@@ -9,6 +9,7 @@ import { LyreSheikComponent } from '../images/lyre-sheik/lyre-sheik.component';
 import { PlayButtonComponent } from '../images/play-button/play-button.component';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PauseButtonComponent } from '../images/pause-button/pause-button.component';
 
 describe('PlayTrackComponent', () => {
 
@@ -16,7 +17,6 @@ describe('PlayTrackComponent', () => {
   let fixture: ComponentFixture<PlayTrackComponent>;
   let track: Track;
   let playButtonElement: HTMLButtonElement;
-  let playIcon: PlayButtonComponent;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -30,6 +30,7 @@ describe('PlayTrackComponent', () => {
         MockComponent(GuitarZoraLinkComponent),
         MockComponent(LyreSheikComponent),
         MockComponent(PlayButtonComponent),
+        MockComponent(PauseButtonComponent),
         PlayTrackComponent
       ]
     })
@@ -51,7 +52,6 @@ describe('PlayTrackComponent', () => {
     component.track = track;
 
     playButtonElement = fixture.elementRef.nativeElement.querySelector('button');
-    playIcon = fixture.debugElement.query(By.css('hll-play-button')).componentInstance;
   });
 
   it('should create', () => {
@@ -62,29 +62,49 @@ describe('PlayTrackComponent', () => {
 
     beforeEach(() => fixture.detectChanges());
 
-    it('inverts color scheme when hovered', () => {
+    it('shows play icon when unselected', () => {
+      expect(_getPlayIcon()).toBeTruthy();
+    });
+
+    it('inverts play icon color scheme when hovered', () => {
       playButtonElement.dispatchEvent(new Event('mouseover'));
       fixture.detectChanges();
 
-      expect(playIcon.invertColors).toBe(true);
+      expect(_getPlayIcon().invertColors).toBe(true);
     });
 
-    it('restores color scheme when mouse over is lost', () => {
+    it('restores play icon color scheme when mouse over is lost', () => {
       playButtonElement.dispatchEvent(new Event('mouseover'));
       fixture.detectChanges();
 
       playButtonElement.dispatchEvent(new Event('mouseout'));
       fixture.detectChanges();
 
-      expect(playIcon.invertColors).toBe(false);
+      expect(_getPlayIcon().invertColors).toBe(false);
     });
 
-    it('inverts color scheme when track is selected', () => {
+    it('shows pause icon when track is selected', () => {
+      playButtonElement.dispatchEvent(new Event('click'));
+      fixture.detectChanges();
+      expect(_getPauseIcon()).toBeTruthy();
+    });
+
+    it('restores play icon when track is selected and then deselected', () => {
       playButtonElement.dispatchEvent(new Event('click'));
       fixture.detectChanges();
 
-      expect(playIcon.invertColors).toBe(true);
+      playButtonElement.dispatchEvent(new Event('click'));
+      fixture.detectChanges();
+      expect(_getPlayIcon()).toBeTruthy();
     });
+
+    function _getPlayIcon() {
+      return fixture.debugElement.query(By.css('hll-play-button')).componentInstance;
+    }
+
+    function _getPauseIcon() {
+      return fixture.debugElement.query(By.css('hll-pause-button')).componentInstance;
+    }
   });
 
   describe('Character Icons', () => {
