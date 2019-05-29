@@ -130,9 +130,26 @@ describe('PlayTrackComponent', () => {
     function _getPauseIcon() {
       return fixture.debugElement.query(By.css('hll-pause-button')).componentInstance;
     }
+  });
 
-    function _getAudioElement(): HTMLAudioElement {
-      return fixture.elementRef.nativeElement.querySelector('audio');
+  describe('Volume Slider', () => {
+
+    it(`starts with value equal to '1'`, () => {
+      expect(_getVolumeSlider().value).toEqual('1');
+      expect(_getAudioElement().volume).toEqual(1);
+    });
+
+    it('changes audio element volume', () => {
+      const volumeElement = _getVolumeSlider();
+      volumeElement.value = '0.55';
+      volumeElement.dispatchEvent(new Event('change'));
+      fixture.detectChanges();
+
+      expect(_getAudioElement().volume).toEqual(0.55);
+    });
+
+    function _getVolumeSlider(): HTMLInputElement {
+      return fixture.elementRef.nativeElement.querySelector('.volume-slider');
     }
   });
 
@@ -227,4 +244,8 @@ describe('PlayTrackComponent', () => {
       });
     });
   });
+
+  function _getAudioElement(): HTMLAudioElement {
+    return fixture.elementRef.nativeElement.querySelector('audio');
+  }
 });
