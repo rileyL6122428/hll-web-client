@@ -6,7 +6,6 @@ $play-button-margin-top: 2rem;
 
   hll-flute-skullkid, hll-pipes-dekukid, hll-drums-goron-link, hll-guitar-zora-link, hll-lyre-sheik {
     position: absolute;
-    // animation: fadein 1s, fadeout 1s;
   }
 
   hll-flute-skullkid {
@@ -102,7 +101,6 @@ $play-button-margin-top: 2rem;
 
     .play-progress-fill {
       height: 100%;
-      width: 9%;
       background-color: #000000;
     }
   }
