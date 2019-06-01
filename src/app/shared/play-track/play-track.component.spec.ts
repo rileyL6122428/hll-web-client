@@ -139,7 +139,7 @@ describe('PlayTrackComponent', () => {
       expect(_getAudioElement().volume).toEqual(1);
     });
 
-    it('changes audio element volume', () => {
+    it('changes audio element volume on value change', () => {
       const volumeElement = _getVolumeSlider();
       volumeElement.value = '0.55';
       volumeElement.dispatchEvent(new Event('change'));
