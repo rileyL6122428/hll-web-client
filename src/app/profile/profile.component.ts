@@ -17,22 +17,13 @@ export class ProfileComponent {
 
   tracks: Track[] = [
     {
-      title: 'Hey, Look, Listen!',
+      title: 'Hey Look Ma I Made it!',
       duration: '3:54',
       likes: 5,
       tags: [
         'video-game',
         'hip hop',
         'mixed'
-      ],
-    },
-    {
-      title: 'Boy with Love',
-      duration: '4:54',
-      likes: 6,
-      tags: [
-        'Pop',
-        'K-Pop'
       ],
     }
   ];

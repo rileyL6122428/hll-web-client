@@ -1,10 +1,15 @@
 <div class="track-container">
   <ng-container *ngIf="active">
-    <hll-flute-skullkid *ngIf="playIconNumber === 0"></hll-flute-skullkid>
-    <hll-pipes-dekukid *ngIf="playIconNumber === 1"></hll-pipes-dekukid>
-    <hll-drums-goron-link *ngIf="playIconNumber === 2"></hll-drums-goron-link>
-    <hll-guitar-zora-link *ngIf="playIconNumber === 3"></hll-guitar-zora-link>
-    <hll-lyre-sheik *ngIf="playIconNumber === 4"></hll-lyre-sheik>
+    <hll-flute-skullkid *ngIf="playIconNumber === 0" [@fadeInOut]>
+    </hll-flute-skullkid>
+    <hll-pipes-dekukid *ngIf="playIconNumber === 1" [@fadeInOut]>
+    </hll-pipes-dekukid>
+    <hll-drums-goron-link *ngIf="playIconNumber === 2" [@fadeInOut]>
+    </hll-drums-goron-link>
+    <hll-guitar-zora-link *ngIf="playIconNumber === 3" [@fadeInOut]>
+    </hll-guitar-zora-link>
+    <hll-lyre-sheik *ngIf="playIconNumber === 4" [@fadeInOut]>
+    </hll-lyre-sheik>
   </ng-container>
 
   <button
@@ -12,7 +17,8 @@
     (mouseover)="playButton.hovered = true"
     (mouseout)="playButton.hovered = false"
     #playButton>
-    <hll-play-button [invertColors]="active || playButton.hovered"></hll-play-button>
+    <hll-play-button *ngIf="!active" [invertColors]="active || playButton.hovered"></hll-play-button>
+    <hll-pause-button *ngIf="active"></hll-pause-button>
   </button>
 
   <div class="track-details">
@@ -22,12 +28,36 @@
     </div>
 
     <div class="track-popularity-tags">
-      <p>{{ track.likes }} hearts</p>
+      <p class="likes">{{ track.likes }} hearts</p>
       <ul class="tags">
         <li class="tag" *ngFor="let tag of track.tags">
           {{ tag }}
         </li>
       </ul>
     </div>
+
+    <input class="volume-slider"
+      type="range"
+      min="0"
+      max="1"
+      step="0.05"
+      value="1"
+      (change)="setVolume($event.target.value)"/>
+
+    <div
+      class="play-progress-indicator"
+      (click)="selectCurrentTrackTime($event.clientX, progressIndicator.getBoundingClientRect())"
+      #progressIndicator>
+      <div
+        class="play-progress-fill"
+        [ngStyle]="progressIndicatorStyles">
+      </div>
+    </div>
   </div>
 </div>
+
+<audio src="http://localhost:8080/api/public/stream-audio/sample"
+  (timeupdate)="onTimeUpdate()"
+  #auidoPlayer>
+  Your browser does not support the <code>audio</code> element.
+</audio>

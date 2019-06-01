@@ -10,13 +10,15 @@ import { PlayTrackComponent } from './shared/play-track/play-track.component';
 import { AuthModule } from './shared/auth/auth.module';
 import { Error404Component } from './error404/error404.component';
 import { Error403Component } from './error403/error403.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
     BrowserModule,
     AppRoutingModule,
     ImagesModule,
-    AuthModule
+    AuthModule,
+    BrowserAnimationsModule
   ],
   declarations: [
     AppComponent,
