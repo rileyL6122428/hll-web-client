@@ -99,9 +99,19 @@ $play-button-margin-top: 2rem;
     border: 1px solid #000000;
     border-radius: 0.25rem;
 
-    .play-progress-fill {
+    display: flex;
+
+    .play-progress-fill, .buffered {
       height: 100%;
+    }
+
+    .play-progress-fill {
       background-color: #000000;
+    }
+
+    .buffered {
+      width: 5%;
+      background-color: #d3d3d3;
     }
   }
 }

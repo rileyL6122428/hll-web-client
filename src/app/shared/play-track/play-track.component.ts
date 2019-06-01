@@ -102,6 +102,40 @@ export class PlayTrackComponent implements OnInit {
     };
   }
 
+  get bufferedAudio(): TimeRanges {
+    return this.audioElement && this.audioElement.buffered;
+  }
+
+  updateBufferedAudio() {
+    if (this.bufferedAudio) {
+      for (let index = 0; index < this.bufferedAudio.length; index++) {
+        const start = this.bufferedAudio.start(index);
+        const end = this.bufferedAudio.end(index);
+        console.log(`Buffered range ${index + 1}: (${start}, ${end})`);
+      }
+    }
+  }
+
+  get trackBufferedPercentage(): number {
+    let bufferedPercentage = 0;
+
+    if (this.bufferedAudio) {
+      const start = this.bufferedAudio.start(0);
+      const end = this.bufferedAudio.end(0);
+      const duration = this.audioElement.duration;
+      const bufferedDecimal = (end - start) / duration;
+      bufferedPercentage = bufferedDecimal * 100;
+    }
+
+    return bufferedPercentage;
+  }
+
+  get progressBufferStyles() {
+    return {
+      width: `${this.trackBufferedPercentage - this.trackCompletedPercentage}%`
+    };
+  }
+
 }
 
 export interface Track {
