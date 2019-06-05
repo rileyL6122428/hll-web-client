@@ -48,11 +48,18 @@
       class="play-progress-indicator"
       (click)="selectCurrentTrackTime($event.clientX, progressIndicator.getBoundingClientRect())"
       #progressIndicator>
-      <div
-        class="play-progress-fill"
-        [ngStyle]="progressIndicatorStyles">
-      </div>
-      <div class="buffered" [ngStyle]="progressBufferStyles"></div>
+      <!-- <ng-container *ngFor="let bufferedRange of bufferedRanges">
+        <div class="play-progress-fill" [ngStyle]="progressIndicatorStyles"></div>
+        <div class="buffered" [ngStyle]="progressBufferStyles"></div>
+      </ng-container> -->
+      <ng-container *ngFor="let range of bufferedAudioRanges">
+        <div *ngIf="range.containsCurrentPlayBack"
+          class="play-progress-fill"
+          [ngStyle]="range.currentPlayBackStyles">
+        </div>
+
+        <div class="buffered" [ngStyle]="range.bufferedStyles"></div>
+      </ng-container>
     </div>
   </div>
 </div>

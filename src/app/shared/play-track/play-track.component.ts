@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output, ViewChild, OnInit } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { BufferedPlayBack } from './buffered-playback.api';
+import { range } from 'rxjs';
 
 @Component({
   selector: 'hll-play-track',
@@ -134,6 +136,45 @@ export class PlayTrackComponent implements OnInit {
     return {
       width: `${this.trackBufferedPercentage - this.trackCompletedPercentage}%`
     };
+  }
+
+  // NEW BUFFERED AUDIO METHODS
+
+  get bufferedAudioRanges(): BufferedPlayBack[] {
+    if (!this.audioElement) { return []; }
+
+    const ranges: BufferedPlayBack[] = [];
+
+    for (let index = 0; index < this.bufferedAudio.length; index++) {
+      const bufferStart = this.bufferedAudio.start(index);
+      const bufferEnd = this.bufferedAudio.end(index);
+      const duration = this.audioElement.duration;
+      const currentTime = this.audioElement.currentTime;
+
+      const containsCurrentPlayBack =
+        currentTime >= bufferStart &&
+        currentTime <= bufferEnd;
+
+      const bufferWidth = (bufferEnd - bufferStart) / duration;
+      const bufferOffset = bufferStart / duration;
+      const currentTimeWidth = containsCurrentPlayBack ? (currentTime - bufferStart) / duration : 0;
+
+      ranges.push({
+        containsCurrentPlayBack,
+
+        currentPlayBackStyles: {
+          left: `${bufferOffset * 100}%`,
+          width: `${currentTimeWidth * 100}%`
+        },
+
+        bufferedStyles: {
+          left: `${(bufferOffset + currentTimeWidth) * 100}%`,
+          width: `${(bufferWidth - currentTimeWidth) * 100}%`
+        }
+      });
+    }
+
+    return ranges;
   }
 
 }
