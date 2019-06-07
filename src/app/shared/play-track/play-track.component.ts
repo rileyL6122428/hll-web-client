@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output, ViewChild, OnInit } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
-import { BufferedPlayBack } from './buffered-playback.api';
-import { range } from 'rxjs';
+import { BufferedPlayBack as BufferedAudio } from './buffered-audio.api';
 
 @Component({
   selector: 'hll-play-track',
@@ -27,9 +26,9 @@ export class PlayTrackComponent implements OnInit {
   @Input() track: Track;
   @Output() playBtnClick: EventEmitter<Track>;
   @ViewChild('auidoPlayer') audioPlayer: { nativeElement: HTMLAudioElement };
+  selectedCharacterIndex: number;
+  bufferedAudioRanges: BufferedAudio[];
   private _active: boolean;
-  playIconNumber: number;
-  trackCompletedPercentage = 0;
 
   constructor() {
     this.playBtnClick = new EventEmitter<Track>();
@@ -37,30 +36,17 @@ export class PlayTrackComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.setCharacterIcon();
+    this.randomlyChooseCharacterIcon();
+  }
+
+  randomlyChooseCharacterIcon(): void {
+    const characterTotal = 5;
+    this.selectedCharacterIndex = Math.floor(Math.random() * characterTotal);
   }
 
   hanldePlayBtnClick(): void {
     this.active = !this.active;
     this.playBtnClick.emit(this.track);
-  }
-
-  setCharacterIcon(): void {
-    this.playIconNumber = Math.floor(Math.random() * 5);
-  }
-
-  @Input()
-  set active(active: boolean) {
-    this._active = active;
-    if (active) {
-      this.play();
-    } else {
-      this.pause();
-    }
-  }
-
-  get active(): boolean {
-    return this._active;
   }
 
   play(): void {
@@ -73,14 +59,6 @@ export class PlayTrackComponent implements OnInit {
     if (this.audioElement) {
       this.audioElement.pause();
     }
-  }
-
-  private get audioElement(): HTMLAudioElement {
-    return this.audioPlayer ? this.audioPlayer.nativeElement : null;
-  }
-
-  onTimeUpdate(): void {
-    this.trackCompletedPercentage = (this.audioElement.currentTime / this.audioElement.duration) * 100;
   }
 
   setVolume(nextVolume: string | number): void {
@@ -98,83 +76,69 @@ export class PlayTrackComponent implements OnInit {
     }
   }
 
-  get progressIndicatorStyles() {
-    return {
-      width: `${this.trackCompletedPercentage}%`
-    };
+  onAudioUpdate(): void {
+    this.setBufferedAudioRanges();
   }
 
-  get bufferedAudio(): TimeRanges {
-    return this.audioElement && this.audioElement.buffered;
-  }
-
-  updateBufferedAudio() {
-    if (this.bufferedAudio) {
-      for (let index = 0; index < this.bufferedAudio.length; index++) {
-        const start = this.bufferedAudio.start(index);
-        const end = this.bufferedAudio.end(index);
-        console.log(`Buffered range ${index + 1}: (${start}, ${end})`);
+  setBufferedAudioRanges(): void {
+    this.bufferedAudioRanges = [];
+    if (this.audioElement) {
+      for (let bufferIndex = 0; bufferIndex < this.audioElement.buffered.length; bufferIndex++) {
+        const nextBufferedRange = this.getBufferedRange(bufferIndex);
+        this.bufferedAudioRanges.push(nextBufferedRange);
       }
     }
+
   }
 
-  get trackBufferedPercentage(): number {
-    let bufferedPercentage = 0;
+  getBufferedRange(bufferIndex: number): BufferedAudio {
+    const bufferStart = this.audioElement.buffered.start(bufferIndex);
+    const bufferEnd = this.audioElement.buffered.end(bufferIndex);
+    const trackDuration = this.audioElement.duration;
+    const currentTime = this.audioElement.currentTime;
 
-    if (this.bufferedAudio) {
-      const start = this.bufferedAudio.start(0);
-      const end = this.bufferedAudio.end(0);
-      const duration = this.audioElement.duration;
-      const bufferedDecimal = (end - start) / duration;
-      bufferedPercentage = bufferedDecimal * 100;
-    }
+    const bufferContainsCurrentPlayBack =
+      currentTime >= bufferStart &&
+      currentTime <= bufferEnd;
 
-    return bufferedPercentage;
-  }
+    const bufferWidth = (bufferEnd - bufferStart) / trackDuration;
+    const bufferOffset = bufferStart / trackDuration;
+    const trackProgressWidth = bufferContainsCurrentPlayBack ?
+      (currentTime - bufferStart) / trackDuration :
+      0;
 
-  get progressBufferStyles() {
     return {
-      width: `${this.trackBufferedPercentage - this.trackCompletedPercentage}%`
+      containsCurrentPlayBack: bufferContainsCurrentPlayBack,
+
+      currentPlayBackStyles: {
+        left: `${bufferOffset * 100}%`,
+        width: `${trackProgressWidth * 100}%`
+      },
+
+      bufferedStyles: {
+        left: `${(bufferOffset + trackProgressWidth) * 100}%`,
+        width: `${(bufferWidth - trackProgressWidth) * 100}%`
+      }
     };
   }
 
-  // NEW BUFFERED AUDIO METHODS
+  @Input()
+  set active(active: boolean) {
+    this._active = active;
 
-  get bufferedAudioRanges(): BufferedPlayBack[] {
-    if (!this.audioElement) { return []; }
-
-    const ranges: BufferedPlayBack[] = [];
-
-    for (let index = 0; index < this.bufferedAudio.length; index++) {
-      const bufferStart = this.bufferedAudio.start(index);
-      const bufferEnd = this.bufferedAudio.end(index);
-      const duration = this.audioElement.duration;
-      const currentTime = this.audioElement.currentTime;
-
-      const containsCurrentPlayBack =
-        currentTime >= bufferStart &&
-        currentTime <= bufferEnd;
-
-      const bufferWidth = (bufferEnd - bufferStart) / duration;
-      const bufferOffset = bufferStart / duration;
-      const currentTimeWidth = containsCurrentPlayBack ? (currentTime - bufferStart) / duration : 0;
-
-      ranges.push({
-        containsCurrentPlayBack,
-
-        currentPlayBackStyles: {
-          left: `${bufferOffset * 100}%`,
-          width: `${currentTimeWidth * 100}%`
-        },
-
-        bufferedStyles: {
-          left: `${(bufferOffset + currentTimeWidth) * 100}%`,
-          width: `${(bufferWidth - currentTimeWidth) * 100}%`
-        }
-      });
+    if (active) {
+      this.play();
+    } else {
+      this.pause();
     }
+  }
 
-    return ranges;
+  get active(): boolean {
+    return this._active;
+  }
+
+  private get audioElement(): HTMLAudioElement {
+    return this.audioPlayer ? this.audioPlayer.nativeElement : null;
   }
 
 }

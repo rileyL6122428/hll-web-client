@@ -1,14 +1,14 @@
 <div class="track-container">
   <ng-container *ngIf="active">
-    <hll-flute-skullkid *ngIf="playIconNumber === 0" [@fadeInOut]>
+    <hll-flute-skullkid *ngIf="selectedCharacterIndex === 0" [@fadeInOut]>
     </hll-flute-skullkid>
-    <hll-pipes-dekukid *ngIf="playIconNumber === 1" [@fadeInOut]>
+    <hll-pipes-dekukid *ngIf="selectedCharacterIndex === 1" [@fadeInOut]>
     </hll-pipes-dekukid>
-    <hll-drums-goron-link *ngIf="playIconNumber === 2" [@fadeInOut]>
+    <hll-drums-goron-link *ngIf="selectedCharacterIndex === 2" [@fadeInOut]>
     </hll-drums-goron-link>
-    <hll-guitar-zora-link *ngIf="playIconNumber === 3" [@fadeInOut]>
+    <hll-guitar-zora-link *ngIf="selectedCharacterIndex === 3" [@fadeInOut]>
     </hll-guitar-zora-link>
-    <hll-lyre-sheik *ngIf="playIconNumber === 4" [@fadeInOut]>
+    <hll-lyre-sheik *ngIf="selectedCharacterIndex === 4" [@fadeInOut]>
     </hll-lyre-sheik>
   </ng-container>
 
@@ -48,10 +48,6 @@
       class="play-progress-indicator"
       (click)="selectCurrentTrackTime($event.clientX, progressIndicator.getBoundingClientRect())"
       #progressIndicator>
-      <!-- <ng-container *ngFor="let bufferedRange of bufferedRanges">
-        <div class="play-progress-fill" [ngStyle]="progressIndicatorStyles"></div>
-        <div class="buffered" [ngStyle]="progressBufferStyles"></div>
-      </ng-container> -->
       <ng-container *ngFor="let range of bufferedAudioRanges">
         <div *ngIf="range.containsCurrentPlayBack"
           class="play-progress-fill"
@@ -65,9 +61,9 @@
 </div>
 
 <audio src="http://localhost:8080/api/public/stream-audio/sample"
-  (timeupdate)="onTimeUpdate()"
-  (loadedmetadata)="updateBufferedAudio()"
-  (progress)="updateBufferedAudio()"
+  (timeupdate)="onAudioUpdate()"
+  (loadedmetadata)="onAudioUpdate()"
+  (progress)="onAudioUpdate()"
   #auidoPlayer>
   Your browser does not support the <code>audio</code> element.
 </audio>
