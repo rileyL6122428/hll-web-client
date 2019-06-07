@@ -102,7 +102,7 @@ $play-button-margin-top: 2rem;
     // display: flex;
     position: relative;
 
-    .play-progress-fill, .buffered {
+    .play-progress-fill, .buffered-fill {
       height: 100%;
       position: absolute;
     }
@@ -111,7 +111,7 @@ $play-button-margin-top: 2rem;
       background-color: #000000;
     }
 
-    .buffered {
+    .buffered-fill {
       width: 5%;
       background-color: #d3d3d3;
     }

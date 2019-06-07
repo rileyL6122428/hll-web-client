@@ -245,6 +245,15 @@ describe('PlayTrackComponent', () => {
     });
   });
 
+  describe('Progress Indicator', () => {
+    xit('renders a buffered-fill element for each buffered range in the audioElement', () => {
+      // use test assets to wire up audio to audio Element
+      // i.e. http://localhost:9876/base/test-assets/audio/clock-town-remix.mp3
+      const audioElement = _getAudioElement();
+
+    });
+  });
+
   function _getAudioElement(): HTMLAudioElement {
     return fixture.elementRef.nativeElement.querySelector('audio');
   }
