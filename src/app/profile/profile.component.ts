@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Track } from '../shared/play-track/play-track.component';
+import { Track } from '../shared/play-track/track.api';
 import { AuthService } from '../shared/auth/auth.service';
 
 @Component({
@@ -25,6 +25,7 @@ export class ProfileComponent {
         'hip hop',
         'mixed'
       ],
+      uri: 'http://localhost:8080/api/public/stream-audio/sample'
     }
   ];
 

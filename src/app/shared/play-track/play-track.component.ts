@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, Output, ViewChild, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, OnInit, AfterViewInit, Renderer2 } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { BufferedPlayBack as BufferedAudio } from './buffered-audio.api';
+import { Track } from './track.api';
+import { AudioPlayer } from './audio-player.service';
 
 @Component({
   selector: 'hll-play-track',
@@ -19,18 +21,22 @@ import { BufferedPlayBack as BufferedAudio } from './buffered-audio.api';
         animate(600, style({ opacity: 0, transform: 'translateX(-40px)' }))
       ])
     ])
-  ]
+  ],
+  providers: [ AudioPlayer ]
 })
-export class PlayTrackComponent implements OnInit {
+export class PlayTrackComponent implements OnInit, AfterViewInit {
 
   @Input() track: Track;
   @Output() playBtnClick: EventEmitter<Track>;
-  @ViewChild('auidoPlayer') audioPlayer: { nativeElement: HTMLAudioElement };
   selectedCharacterIndex: number;
-  bufferedAudioRanges: BufferedAudio[];
+
+  @ViewChild('audio')
+  private audioPlayerViewChild: { nativeElement: HTMLAudioElement };
   private _active: boolean;
 
-  constructor() {
+  constructor(
+    private audioPlayer: AudioPlayer
+  ) {
     this.playBtnClick = new EventEmitter<Track>();
     this.active = false;
   }
@@ -39,9 +45,26 @@ export class PlayTrackComponent implements OnInit {
     this.randomlyChooseCharacterIcon();
   }
 
-  randomlyChooseCharacterIcon(): void {
+  private randomlyChooseCharacterIcon(): void {
     const characterTotal = 5;
     this.selectedCharacterIndex = Math.floor(Math.random() * characterTotal);
+  }
+
+  ngAfterViewInit(): void {
+    this.audioPlayer.element = this.audioPlayerViewChild.nativeElement;
+  }
+
+  onAudioElementUpdate(): void {
+    /**
+     * PLACEHOLDER TO TRIGGER ANGULAR CHANGE DETECTION
+     *
+     * REMOVING THIS BLOCK WILL PREVENT TRACK PROGRESS UI
+     * FROM UPDATING
+     */
+  }
+
+  selectCurrentTime(mouseX: number, progressBar: DOMRect): void {
+    this.audioPlayer.currentTime = (mouseX - progressBar.x) / progressBar.width;
   }
 
   hanldePlayBtnClick(): void {
@@ -49,103 +72,22 @@ export class PlayTrackComponent implements OnInit {
     this.playBtnClick.emit(this.track);
   }
 
-  play(): void {
-    if (this.audioElement) {
-      this.audioElement.play();
-    }
-  }
-
-  pause(): void {
-    if (this.audioElement) {
-      this.audioElement.pause();
-    }
-  }
-
-  setVolume(nextVolume: string | number): void {
-    if (typeof nextVolume === 'string') {
-      this.audioElement.volume = Number(nextVolume);
-    } else {
-      this.audioElement.volume = nextVolume;
-    }
-  }
-
-  selectCurrentTrackTime(mouseX: number, progressBarDOMRect: DOMRect): void {
-    if (this.audioElement) {
-      const currentTimeDecimal = (mouseX - progressBarDOMRect.x) / progressBarDOMRect.width;
-      this.audioElement.currentTime = currentTimeDecimal * this.audioElement.duration;
-    }
-  }
-
-  onAudioUpdate(): void {
-    this.setBufferedAudioRanges();
-  }
-
-  setBufferedAudioRanges(): void {
-    this.bufferedAudioRanges = [];
-    if (this.audioElement) {
-      for (let bufferIndex = 0; bufferIndex < this.audioElement.buffered.length; bufferIndex++) {
-        const nextBufferedRange = this.getBufferedRange(bufferIndex);
-        this.bufferedAudioRanges.push(nextBufferedRange);
-      }
-    }
-
-  }
-
-  getBufferedRange(bufferIndex: number): BufferedAudio {
-    const bufferStart = this.audioElement.buffered.start(bufferIndex);
-    const bufferEnd = this.audioElement.buffered.end(bufferIndex);
-    const trackDuration = this.audioElement.duration;
-    const currentTime = this.audioElement.currentTime;
-
-    const bufferContainsCurrentPlayBack =
-      currentTime >= bufferStart &&
-      currentTime <= bufferEnd;
-
-    const bufferWidth = (bufferEnd - bufferStart) / trackDuration;
-    const bufferOffset = bufferStart / trackDuration;
-    const trackProgressWidth = bufferContainsCurrentPlayBack ?
-      (currentTime - bufferStart) / trackDuration :
-      0;
-
-    return {
-      containsCurrentPlayBack: bufferContainsCurrentPlayBack,
-
-      currentPlayBackStyles: {
-        left: `${bufferOffset * 100}%`,
-        width: `${trackProgressWidth * 100}%`
-      },
-
-      bufferedStyles: {
-        left: `${(bufferOffset + trackProgressWidth) * 100}%`,
-        width: `${(bufferWidth - trackProgressWidth) * 100}%`
-      }
-    };
-  }
-
   @Input()
   set active(active: boolean) {
     this._active = active;
-
-    if (active) {
-      this.play();
-    } else {
-      this.pause();
-    }
+    active ? this.audioPlayer.play() : this.audioPlayer.pause();
   }
 
   get active(): boolean {
     return this._active;
   }
 
-  private get audioElement(): HTMLAudioElement {
-    return this.audioPlayer ? this.audioPlayer.nativeElement : null;
+  set volume(volume: string | number) {
+    this.audioPlayer.volume = volume;
   }
 
-}
+  get bufferedAudioRanges(): BufferedAudio[] {
+    return this.audioPlayer.bufferedAudioRanges;
+  }
 
-export interface Track {
-  title: string;
-  duration: string;
-  likes: number;
-  tags: string[];
 }

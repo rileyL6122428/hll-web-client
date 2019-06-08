@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { PlayTrackComponent, Track } from './play-track.component';
+import { PlayTrackComponent } from './play-track.component';
 import { FluteSkullkidComponent } from '../images/flute-skullkid/flute-skullkid.component';
 import { MockComponent } from 'ng-mocks';
 import { PipesDekukidComponent } from '../images/pipes-dekukid/pipes-dekukid.component';
@@ -10,6 +10,8 @@ import { PlayButtonComponent } from '../images/play-button/play-button.component
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PauseButtonComponent } from '../images/pause-button/pause-button.component';
+import { Track } from './track.api';
+import { browser } from 'protractor';
 
 describe('PlayTrackComponent', () => {
 
@@ -37,22 +39,23 @@ describe('PlayTrackComponent', () => {
     .compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     track = {
-      title: 'Knuckles Search Theme',
-      duration: '17:53',
+      title: 'Clock Town Remix',
+      duration: '3:54',
       likes: 5,
-      tags: ['Hip Hop', 'Video Game'],
-    };
-  });
+      tags: ['Video Game', 'Remix'],
+      uri: 'http://localhost:9876/base/test-assets/audio/clock-town-remix.mp3'
+    } as Track;
+  }));
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     fixture = TestBed.createComponent(PlayTrackComponent);
     component = fixture.componentInstance;
     component.track = track;
 
     playButtonElement = fixture.elementRef.nativeElement.querySelector('button');
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -245,13 +248,37 @@ describe('PlayTrackComponent', () => {
     });
   });
 
-  describe('Progress Indicator', () => {
-    xit('renders a buffered-fill element for each buffered range in the audioElement', () => {
+  fdescribe('Progress Indicator', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
+      _getAudioElement().dispatchEvent(new Event('loadedmetadata'));
+      playButtonElement.click();
+      fixture.detectChanges();
+      component.onAudioUpdate();
+
+      playButtonElement.click();
+      fixture.detectChanges();
+    });
+
+    it(`renders one 'buffered-fill' element by default`, () => {
+      console.log(component.bufferedAudioRanges.length);
+      const bufferedFills = _getBufferedFillElements();
+      expect(bufferedFills.length).toEqual(1);
+    });
+
+    xit(`renders multiple 'buffered-fill' elements if the user moves the current time out of the default buffer range`, () => {
       // use test assets to wire up audio to audio Element
       // i.e. http://localhost:9876/base/test-assets/audio/clock-town-remix.mp3
       const audioElement = _getAudioElement();
+      audioElement.currentTime = audioElement.buffered.start(0) + 1;
 
     });
+
+    function _getBufferedFillElements(): HTMLElement[] {
+      return Array.from(
+        fixture.elementRef.nativeElement.querySelectorAll('.buffered-fill')
+      );
+    }
   });
 
   function _getAudioElement(): HTMLAudioElement {
