@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { PlayTrackComponent } from './play-track.component';
+import { PlayTrackComponent } from './track-player.component';
 import { FluteSkullkidComponent } from '../images/flute-skullkid/flute-skullkid.component';
 import { MockComponent } from 'ng-mocks';
 import { PipesDekukidComponent } from '../images/pipes-dekukid/pipes-dekukid.component';
@@ -11,15 +11,15 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PauseButtonComponent } from '../images/pause-button/pause-button.component';
 import { Track } from './track.api';
-import { AudioPlayer } from './audio-player.service';
+import { TrackPlayer } from './track-player.service';
 import { BufferedPlayBack } from './buffered-audio.api';
 
-describe('PlayTrackComponent', () => {
+describe('TrackPlayerComponent', () => {
 
   let component: PlayTrackComponent;
   let fixture: ComponentFixture<PlayTrackComponent>;
   let track: Track;
-  let audioPlayer: any;
+  let trackPlayerService: any;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -42,8 +42,8 @@ describe('PlayTrackComponent', () => {
       set: {
         providers: [
           {
-            provide: AudioPlayer,
-            useFactory: () => audioPlayer = jasmine.createSpyObj('AudioPlayer', ['play', 'pause'])
+            provide: TrackPlayer,
+            useFactory: () => trackPlayerService = jasmine.createSpyObj('AudioPlayer', ['play', 'pause'])
           },
         ]
       }
@@ -116,7 +116,7 @@ describe('PlayTrackComponent', () => {
     it('tells the AudioPlayer to play when clicked', () => {
       _getPlayButtonElement().dispatchEvent(new Event('click'));
       fixture.detectChanges();
-      expect(audioPlayer.play).toHaveBeenCalled();
+      expect(trackPlayerService.play).toHaveBeenCalled();
     });
 
     it('tells the audio element to pause when clicked twice', () => {
@@ -126,7 +126,7 @@ describe('PlayTrackComponent', () => {
       _getPlayButtonElement().dispatchEvent(new Event('click'));
       fixture.detectChanges();
 
-      expect(audioPlayer.pause).toHaveBeenCalled();
+      expect(trackPlayerService.pause).toHaveBeenCalled();
     });
 
     function _getPlayIcon() {
@@ -150,7 +150,7 @@ describe('PlayTrackComponent', () => {
       volumeElement.dispatchEvent(new Event('change'));
       fixture.detectChanges();
 
-      expect(audioPlayer.volume).toEqual('0.55');
+      expect(trackPlayerService.volume).toEqual('0.55');
     });
 
     function _getVolumeSlider(): HTMLInputElement {
@@ -253,14 +253,14 @@ describe('PlayTrackComponent', () => {
   describe('ngAfterViewInit', () => {
     it('passes the HTML audioElement to the AudioPlayer Service', () => {
       fixture.detectChanges();
-      expect(audioPlayer.element).toBe(_getAudioElement());
+      expect(trackPlayerService.element).toBe(_getAudioElement());
     });
   });
 
   describe('Progress Indicator', () => {
 
     it(`renders one 'buffered-fill' element when audioPlayer.bufferedAudioRanges returns a single bufferedRange`, () => {
-      audioPlayer.bufferedAudioRanges = [{
+      trackPlayerService.bufferedAudioRanges = [{
         bufferedStyles: {},
         currentPlayBackStyles: {},
         containsCurrentPlayBack: true
@@ -272,7 +272,7 @@ describe('PlayTrackComponent', () => {
     });
 
     it(`renders multiple 'buffered-fill' elements when audioPlayer.bufferedAudioRanges returns multiple bufferedRanges`, () => {
-      audioPlayer.bufferedAudioRanges = [
+      trackPlayerService.bufferedAudioRanges = [
         {
           bufferedStyles: {},
           currentPlayBackStyles: {},
@@ -291,7 +291,7 @@ describe('PlayTrackComponent', () => {
     });
 
     it(`renders playback-progress element in the correct buffered range`, () => {
-      audioPlayer.bufferedAudioRanges = [
+      trackPlayerService.bufferedAudioRanges = [
         {
           bufferedStyles: {},
           currentPlayBackStyles: {},

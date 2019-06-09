@@ -15,12 +15,12 @@
   </div>
   <ul class="tracks">
     <li class="track" *ngFor="let track of tracks">
-      <hll-play-track
+      <hll-track-player
         [track]="track"
         [active]="track === selected"
         (playBtnClick)="handlePlayBtnClick($event)">
 
-      </hll-play-track>
+      </hll-track-player>
     </li>
   </ul>
 </main>

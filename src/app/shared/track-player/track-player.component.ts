@@ -2,12 +2,12 @@ import { Component, EventEmitter, Input, Output, ViewChild, OnInit, AfterViewIni
 import { trigger, style, animate, transition } from '@angular/animations';
 import { BufferedPlayBack as BufferedAudio } from './buffered-audio.api';
 import { Track } from './track.api';
-import { AudioPlayer } from './audio-player.service';
+import { TrackPlayer } from './track-player.service';
 
 @Component({
-  selector: 'hll-play-track',
-  templateUrl: './play-track.component.html',
-  styleUrls: ['./play-track.component.scss'],
+  selector: 'hll-track-player',
+  templateUrl: './track-player.component.html',
+  styleUrls: ['./track-player.component.scss'],
   animations: [
     // THE FOLLOWING ANIMATION WAS ADAPTED FROM:
     //   https://stackoverflow.com/questions/46234971/angular-4-animation-not-working
@@ -22,7 +22,7 @@ import { AudioPlayer } from './audio-player.service';
       ])
     ])
   ],
-  providers: [ AudioPlayer ]
+  providers: [ TrackPlayer ]
 })
 export class PlayTrackComponent implements OnInit, AfterViewInit {
 
@@ -35,7 +35,7 @@ export class PlayTrackComponent implements OnInit, AfterViewInit {
   private _active: boolean;
 
   constructor(
-    private audioPlayer: AudioPlayer
+    private audioPlayer: TrackPlayer
   ) {
     this.playBtnClick = new EventEmitter<Track>();
     this.active = false;

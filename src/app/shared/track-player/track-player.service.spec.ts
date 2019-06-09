@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AudioPlayer } from './audio-player.service';
+import { TrackPlayer } from './track-player.service';
 
-describe('AudioPlayerService', () => {
+describe('TrackPlayerService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: AudioPlayer = TestBed.get(AudioPlayer);
+    const service: TrackPlayer = TestBed.get(TrackPlayer);
     expect(service).toBeTruthy();
   });
 });

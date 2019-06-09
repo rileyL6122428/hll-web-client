@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProfileComponent } from './profile.component';
 import { MockComponent } from 'ng-mocks';
 import { SiteLogoComponent } from '../shared/site-logo/site-logo.component';
-import { PlayTrackComponent } from '../shared/play-track/play-track.component';
+import { PlayTrackComponent } from '../shared/track-player/track-player.component';
 import { AuthService } from '../shared/auth/auth.service';
 
 describe('ProfileComponent', () => {

@@ -4,7 +4,7 @@ import { BufferedPlayBack as BufferedAudio } from './buffered-audio.api';
 @Injectable({
   providedIn: 'root'
 })
-export class AudioPlayer {
+export class TrackPlayer {
 
   private audioElement: HTMLAudioElement;
 

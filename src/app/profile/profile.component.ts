@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Track } from '../shared/play-track/track.api';
+import { Track } from '../shared/track-player/track.api';
 import { AuthService } from '../shared/auth/auth.service';
 
 @Component({
