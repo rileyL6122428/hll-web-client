@@ -11,14 +11,15 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PauseButtonComponent } from '../images/pause-button/pause-button.component';
 import { Track } from './track.api';
-import { browser } from 'protractor';
+import { AudioPlayer } from './audio-player.service';
+import { BufferedPlayBack } from './buffered-audio.api';
 
 describe('PlayTrackComponent', () => {
 
   let component: PlayTrackComponent;
   let fixture: ComponentFixture<PlayTrackComponent>;
   let track: Track;
-  let playButtonElement: HTMLButtonElement;
+  let audioPlayer: any;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -35,8 +36,20 @@ describe('PlayTrackComponent', () => {
         MockComponent(PauseButtonComponent),
         PlayTrackComponent
       ]
-    })
-    .compileComponents();
+    });
+
+    TestBed.overrideComponent(PlayTrackComponent, {
+      set: {
+        providers: [
+          {
+            provide: AudioPlayer,
+            useFactory: () => audioPlayer = jasmine.createSpyObj('AudioPlayer', ['play', 'pause'])
+          },
+        ]
+      }
+    });
+
+    TestBed.compileComponents();
   }));
 
   beforeEach(async(() => {
@@ -53,8 +66,6 @@ describe('PlayTrackComponent', () => {
     fixture = TestBed.createComponent(PlayTrackComponent);
     component = fixture.componentInstance;
     component.track = track;
-
-    playButtonElement = fixture.elementRef.nativeElement.querySelector('button');
   }));
 
   it('should create', () => {
@@ -70,60 +81,52 @@ describe('PlayTrackComponent', () => {
     });
 
     it('inverts play icon color scheme when hovered', () => {
-      playButtonElement.dispatchEvent(new Event('mouseover'));
+      _getPlayButtonElement().dispatchEvent(new Event('mouseover'));
       fixture.detectChanges();
 
       expect(_getPlayIcon().invertColors).toBe(true);
     });
 
     it('restores play icon color scheme when mouse over is lost', () => {
-      playButtonElement.dispatchEvent(new Event('mouseover'));
+      _getPlayButtonElement().dispatchEvent(new Event('mouseover'));
       fixture.detectChanges();
 
-      playButtonElement.dispatchEvent(new Event('mouseout'));
+      _getPlayButtonElement().dispatchEvent(new Event('mouseout'));
       fixture.detectChanges();
 
       expect(_getPlayIcon().invertColors).toBe(false);
     });
 
     it('shows pause icon when track is selected', () => {
-      playButtonElement.dispatchEvent(new Event('click'));
+      _getPlayButtonElement().dispatchEvent(new Event('click'));
       fixture.detectChanges();
       expect(_getPauseIcon()).toBeTruthy();
     });
 
     it('restores play icon when track is selected and then deselected', () => {
-      playButtonElement.dispatchEvent(new Event('click'));
+      _getPlayButtonElement().dispatchEvent(new Event('click'));
       fixture.detectChanges();
 
-      playButtonElement.dispatchEvent(new Event('click'));
+      _getPlayButtonElement().dispatchEvent(new Event('click'));
       fixture.detectChanges();
 
       expect(_getPlayIcon()).toBeTruthy();
     });
 
-    it('tells the audio element to play when clicked', () => {
-      const audioElement = _getAudioElement();
-      spyOn(audioElement, 'play');
-
-      playButtonElement.dispatchEvent(new Event('click'));
+    it('tells the AudioPlayer to play when clicked', () => {
+      _getPlayButtonElement().dispatchEvent(new Event('click'));
       fixture.detectChanges();
-
-      expect(audioElement.play).toHaveBeenCalled();
+      expect(audioPlayer.play).toHaveBeenCalled();
     });
 
     it('tells the audio element to pause when clicked twice', () => {
-      const audioElement = _getAudioElement();
-      spyOn(audioElement, 'play');
-      spyOn(audioElement, 'pause');
-
-      playButtonElement.dispatchEvent(new Event('click'));
+      _getPlayButtonElement().dispatchEvent(new Event('click'));
       fixture.detectChanges();
 
-      playButtonElement.dispatchEvent(new Event('click'));
+      _getPlayButtonElement().dispatchEvent(new Event('click'));
       fixture.detectChanges();
 
-      expect(audioElement.pause).toHaveBeenCalled();
+      expect(audioPlayer.pause).toHaveBeenCalled();
     });
 
     function _getPlayIcon() {
@@ -139,16 +142,15 @@ describe('PlayTrackComponent', () => {
 
     it(`starts with value equal to '1'`, () => {
       expect(_getVolumeSlider().value).toEqual('1');
-      expect(_getAudioElement().volume).toEqual(1);
     });
 
-    it('changes audio element volume on value change', () => {
+    it('changes AudioPlayer volume on value change', () => {
       const volumeElement = _getVolumeSlider();
       volumeElement.value = '0.55';
       volumeElement.dispatchEvent(new Event('change'));
       fixture.detectChanges();
 
-      expect(_getAudioElement().volume).toEqual(0.55);
+      expect(audioPlayer.volume).toEqual('0.55');
     });
 
     function _getVolumeSlider(): HTMLInputElement {
@@ -161,7 +163,7 @@ describe('PlayTrackComponent', () => {
       spyOn(Math, 'random').and.returnValue(.1);
       fixture.detectChanges();
 
-      playButtonElement.dispatchEvent(new Event('click'));
+      _getPlayButtonElement().dispatchEvent(new Event('click'));
       fixture.detectChanges();
 
       expect(fixture.elementRef.nativeElement.querySelector('hll-flute-skullkid')).toBeTruthy();
@@ -175,7 +177,7 @@ describe('PlayTrackComponent', () => {
       spyOn(Math, 'random').and.returnValue(.3);
       fixture.detectChanges();
 
-      playButtonElement.dispatchEvent(new Event('click'));
+      _getPlayButtonElement().dispatchEvent(new Event('click'));
       fixture.detectChanges();
 
       expect(fixture.elementRef.nativeElement.querySelector('hll-flute-skullkid')).toBeFalsy();
@@ -189,7 +191,7 @@ describe('PlayTrackComponent', () => {
       spyOn(Math, 'random').and.returnValue(.5);
       fixture.detectChanges();
 
-      playButtonElement.dispatchEvent(new Event('click'));
+      _getPlayButtonElement().dispatchEvent(new Event('click'));
       fixture.detectChanges();
 
       expect(fixture.elementRef.nativeElement.querySelector('hll-flute-skullkid')).toBeFalsy();
@@ -203,7 +205,7 @@ describe('PlayTrackComponent', () => {
       spyOn(Math, 'random').and.returnValue(.7);
       fixture.detectChanges();
 
-      playButtonElement.dispatchEvent(new Event('click'));
+      _getPlayButtonElement().dispatchEvent(new Event('click'));
       fixture.detectChanges();
 
       expect(fixture.elementRef.nativeElement.querySelector('hll-flute-skullkid')).toBeFalsy();
@@ -217,7 +219,7 @@ describe('PlayTrackComponent', () => {
       spyOn(Math, 'random').and.returnValue(.9);
       fixture.detectChanges();
 
-      playButtonElement.dispatchEvent(new Event('click'));
+      _getPlayButtonElement().dispatchEvent(new Event('click'));
       fixture.detectChanges();
 
       expect(fixture.elementRef.nativeElement.querySelector('hll-flute-skullkid')).toBeFalsy();
@@ -248,30 +250,73 @@ describe('PlayTrackComponent', () => {
     });
   });
 
-  fdescribe('Progress Indicator', () => {
-    beforeEach(() => {
+  describe('ngAfterViewInit', () => {
+    it('passes the HTML audioElement to the AudioPlayer Service', () => {
       fixture.detectChanges();
-      _getAudioElement().dispatchEvent(new Event('loadedmetadata'));
-      playButtonElement.click();
-      fixture.detectChanges();
-      component.onAudioUpdate();
+      expect(audioPlayer.element).toBe(_getAudioElement());
+    });
+  });
 
-      playButtonElement.click();
+  describe('Progress Indicator', () => {
+
+    it(`renders one 'buffered-fill' element when audioPlayer.bufferedAudioRanges returns a single bufferedRange`, () => {
+      audioPlayer.bufferedAudioRanges = [{
+        bufferedStyles: {},
+        currentPlayBackStyles: {},
+        containsCurrentPlayBack: true
+      }] as BufferedPlayBack[];
+
       fixture.detectChanges();
+
+      expect(_getBufferedFillElements().length).toEqual(1);
     });
 
-    it(`renders one 'buffered-fill' element by default`, () => {
-      console.log(component.bufferedAudioRanges.length);
-      const bufferedFills = _getBufferedFillElements();
-      expect(bufferedFills.length).toEqual(1);
+    it(`renders multiple 'buffered-fill' elements when audioPlayer.bufferedAudioRanges returns multiple bufferedRanges`, () => {
+      audioPlayer.bufferedAudioRanges = [
+        {
+          bufferedStyles: {},
+          currentPlayBackStyles: {},
+          containsCurrentPlayBack: false
+        },
+        {
+          bufferedStyles: {},
+          currentPlayBackStyles: {},
+          containsCurrentPlayBack: true
+        }
+      ] as BufferedPlayBack[];
+
+      fixture.detectChanges();
+
+      expect(_getBufferedFillElements().length).toEqual(2);
     });
 
-    xit(`renders multiple 'buffered-fill' elements if the user moves the current time out of the default buffer range`, () => {
-      // use test assets to wire up audio to audio Element
-      // i.e. http://localhost:9876/base/test-assets/audio/clock-town-remix.mp3
-      const audioElement = _getAudioElement();
-      audioElement.currentTime = audioElement.buffered.start(0) + 1;
+    it(`renders playback-progress element in the correct buffered range`, () => {
+      audioPlayer.bufferedAudioRanges = [
+        {
+          bufferedStyles: {},
+          currentPlayBackStyles: {},
+          containsCurrentPlayBack: false
+        },
+        {
+          bufferedStyles: {},
+          currentPlayBackStyles: {},
+          containsCurrentPlayBack: true
+        },
+        {
+          bufferedStyles: {},
+          currentPlayBackStyles: {},
+          containsCurrentPlayBack: false
+        }
+      ] as BufferedPlayBack[];
 
+      fixture.detectChanges();
+
+      const allPlayProgressElements = _getAllPlayProgressElements();
+      expect(allPlayProgressElements.length).toEqual(4);
+      expect(allPlayProgressElements[0].classList).toContain('buffered-fill');
+      expect(allPlayProgressElements[1].classList).toContain('play-progress-fill');
+      expect(allPlayProgressElements[2].classList).toContain('buffered-fill');
+      expect(allPlayProgressElements[3].classList).toContain('buffered-fill');
     });
 
     function _getBufferedFillElements(): HTMLElement[] {
@@ -279,9 +324,19 @@ describe('PlayTrackComponent', () => {
         fixture.elementRef.nativeElement.querySelectorAll('.buffered-fill')
       );
     }
+
+    function _getAllPlayProgressElements(): HTMLElement[] {
+      return Array.from(
+        fixture.elementRef.nativeElement.querySelectorAll('.buffered-fill, .play-progress-fill')
+      );
+    }
   });
 
   function _getAudioElement(): HTMLAudioElement {
     return fixture.elementRef.nativeElement.querySelector('audio');
+  }
+
+  function _getPlayButtonElement(): HTMLButtonElement {
+    return fixture.elementRef.nativeElement.querySelector('button');
   }
 });
