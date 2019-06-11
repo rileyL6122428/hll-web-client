@@ -1,0 +1,117 @@
+$play-button-margin-top: 2rem;
+
+.track-container {
+  position: relative;
+  display: flex;
+
+  hll-flute-skullkid, hll-pipes-dekukid, hll-drums-goron-link, hll-guitar-zora-link, hll-lyre-sheik {
+    position: absolute;
+  }
+
+  hll-flute-skullkid {
+    width: 2.15rem;
+    top: -3.6375rem + $play-button-margin-top;
+    left: .25rem;
+  }
+
+  hll-pipes-dekukid {
+    width: 2.9375rem;
+    top: -2.6775rem + $play-button-margin-top;
+    left: -0.625rem;
+  }
+
+  hll-drums-goron-link {
+    height: 5.625rem;
+    top: -4.6125rem + $play-button-margin-top;
+    left: .5rem;
+  }
+
+  hll-guitar-zora-link {
+    height: 5.625rem;
+    top: -4.025rem + $play-button-margin-top;
+    left: -1.125rem;
+  }
+
+  hll-lyre-sheik {
+    width: 3.25rem;
+    top: -4.1375rem + $play-button-margin-top;
+    left: -0.6875rem;
+  }
+
+  button {
+    height: 3.375rem;
+    width: 3.375rem;
+
+    hll-play-button, hll-pause-button {
+      display: block;
+      width: 3rem;
+      height: 3rem;
+      margin-top: $play-button-margin-top;
+    }
+  }
+
+
+  .track-details {
+    margin-left: .5rem;
+  }
+
+  .track-details .track-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.3125rem;
+
+    h3 {
+      font-weight: bold;
+    }
+    h3, p {
+      font-size: 1.25rem;
+    }
+  }
+
+  .track-details .track-popularity-tags {
+    display: flex;
+    margin-bottom: 0.3125rem;
+  }
+
+  .track-details .likes {
+    margin-right: 0.375rem;
+  }
+
+  .track-details .tags {
+    display: flex;
+  }
+
+  .track-details .tag {
+    margin-right: .375rem;
+    background-color: #000000;
+    color: #ffffff;
+    padding: .25rem .35rem;
+    border-radius: .45rem;
+  }
+
+  .volume-slider {
+    margin-bottom: 0.3125rem;
+  }
+
+  .track-details .play-progress-indicator {
+    width: 100%;
+    height: 0.8rem;
+    border: 1px solid #000000;
+    border-radius: 0.25rem;
+
+    position: relative;
+
+    .play-progress-fill, .buffered-fill {
+      height: 100%;
+      position: absolute;
+    }
+
+    .play-progress-fill {
+      background-color: #000000;
+    }
+
+    .buffered-fill {
+      background-color: #d3d3d3;
+    }
+  }
+}
