@@ -24,7 +24,7 @@ import { TrackPlayer } from './track-player.service';
   ],
   providers: [ TrackPlayer ]
 })
-export class PlayTrackComponent implements OnInit, AfterViewInit {
+export class TrackPlayerComponent implements OnInit, AfterViewInit {
 
   @Input() track: Track;
   @Output() playBtnClick: EventEmitter<Track>;

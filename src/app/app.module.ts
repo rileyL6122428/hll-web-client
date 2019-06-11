@@ -6,7 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ImagesModule } from './shared/images/images.module';
 import { SiteLogoComponent } from './shared/site-logo/site-logo.component';
-import { PlayTrackComponent } from './shared/track-player/track-player.component';
+import { TrackPlayerComponent } from './shared/track-player/track-player.component';
 import { AuthModule } from './shared/auth/auth.module';
 import { Error404Component } from './error404/error404.component';
 import { Error403Component } from './error403/error403.component';
@@ -25,7 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent,
     ProfileComponent,
     SiteLogoComponent,
-    PlayTrackComponent,
+    TrackPlayerComponent,
     Error404Component,
     Error403Component
   ],

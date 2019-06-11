@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { PlayTrackComponent } from './track-player.component';
+import { TrackPlayerComponent } from './track-player.component';
 import { FluteSkullkidComponent } from '../images/flute-skullkid/flute-skullkid.component';
 import { MockComponent } from 'ng-mocks';
 import { PipesDekukidComponent } from '../images/pipes-dekukid/pipes-dekukid.component';
@@ -16,8 +16,8 @@ import { BufferedPlayBack } from './buffered-audio.api';
 
 describe('TrackPlayerComponent', () => {
 
-  let component: PlayTrackComponent;
-  let fixture: ComponentFixture<PlayTrackComponent>;
+  let component: TrackPlayerComponent;
+  let fixture: ComponentFixture<TrackPlayerComponent>;
   let track: Track;
   let trackPlayerService: any;
 
@@ -34,11 +34,11 @@ describe('TrackPlayerComponent', () => {
         MockComponent(LyreSheikComponent),
         MockComponent(PlayButtonComponent),
         MockComponent(PauseButtonComponent),
-        PlayTrackComponent
+        TrackPlayerComponent
       ]
     });
 
-    TestBed.overrideComponent(PlayTrackComponent, {
+    TestBed.overrideComponent(TrackPlayerComponent, {
       set: {
         providers: [
           {
@@ -66,7 +66,7 @@ describe('TrackPlayerComponent', () => {
   }));
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(PlayTrackComponent);
+    fixture = TestBed.createComponent(TrackPlayerComponent);
     component = fixture.componentInstance;
     component.track = track;
   }));
