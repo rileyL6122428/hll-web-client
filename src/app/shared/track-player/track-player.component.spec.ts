@@ -43,7 +43,10 @@ describe('TrackPlayerComponent', () => {
         providers: [
           {
             provide: TrackPlayer,
-            useFactory: () => trackPlayerService = jasmine.createSpyObj('AudioPlayer', ['play', 'pause'])
+            useFactory: () => trackPlayerService = jasmine.createSpyObj('TrackPlayerService', [
+              'play',
+              'pause'
+            ])
           },
         ]
       }
@@ -113,7 +116,7 @@ describe('TrackPlayerComponent', () => {
       expect(_getPlayIcon()).toBeTruthy();
     });
 
-    it('tells the AudioPlayer to play when clicked', () => {
+    it('tells the TrackPlayerService to play when clicked', () => {
       _getPlayButtonElement().dispatchEvent(new Event('click'));
       fixture.detectChanges();
       expect(trackPlayerService.play).toHaveBeenCalled();
@@ -144,7 +147,7 @@ describe('TrackPlayerComponent', () => {
       expect(_getVolumeSlider().value).toEqual('1');
     });
 
-    it('changes AudioPlayer volume on value change', () => {
+    it('changes trackPlayerService volume on value change', () => {
       const volumeElement = _getVolumeSlider();
       volumeElement.value = '0.55';
       volumeElement.dispatchEvent(new Event('change'));
@@ -251,7 +254,7 @@ describe('TrackPlayerComponent', () => {
   });
 
   describe('ngAfterViewInit', () => {
-    it('passes the HTML audioElement to the AudioPlayer Service', () => {
+    it('passes the HTML audioElement to the trackPlayerService', () => {
       fixture.detectChanges();
       expect(trackPlayerService.element).toBe(_getAudioElement());
     });
@@ -259,7 +262,7 @@ describe('TrackPlayerComponent', () => {
 
   describe('Progress Indicator', () => {
 
-    it(`renders one 'buffered-fill' element when audioPlayer.bufferedAudioRanges returns a single bufferedRange`, () => {
+    it(`renders one 'buffered-fill' element when trackPlayerService.bufferedAudioRanges returns a single bufferedRange`, () => {
       trackPlayerService.bufferedAudioRanges = [{
         bufferedStyles: {},
         currentPlayBackStyles: {},

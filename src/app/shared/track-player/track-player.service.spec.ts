@@ -13,7 +13,7 @@ describe('TrackPlayerService', () => {
     });
 
     trackPlayer = TestBed.get(TrackPlayer);
-    audioElement = jasmine.createSpyObj('audioElement', [
+    audioElement = jasmine.createSpyObj('TrackPlayerService', [
       'play',
       'pause',
     ]);
