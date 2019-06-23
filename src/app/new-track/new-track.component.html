@@ -1,0 +1,15 @@
+<form>
+  <div class="form-group">
+    <label for="audio-file" class="sr-only">Choose File</label>
+    <input
+      id="audio-file"
+      type="file"
+      name="audio-file"
+      [(ngModel)]="audioFile"
+      #fileInput/>
+  </div>
+
+  <div class="form-actions">
+    <button (click)="submit()">Submit</button>
+  </div>
+</form>
