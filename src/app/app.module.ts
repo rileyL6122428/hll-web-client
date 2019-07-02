@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { Error403Component } from './error403/error403.component';
+import { Error404Component } from './error404/error404.component';
 import { HomeComponent } from './home/home.component';
+import { NewTrackComponent } from './new-track/new-track.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AuthModule } from './shared/auth/auth.module';
+import { HllHttpClientsModule } from './shared/http-clients/http-clients.module';
 import { ImagesModule } from './shared/images/images.module';
 import { SiteLogoComponent } from './shared/site-logo/site-logo.component';
 import { TrackPlayerComponent } from './shared/track-player/track-player.component';
-import { AuthModule } from './shared/auth/auth.module';
-import { Error404Component } from './error404/error404.component';
-import { Error403Component } from './error403/error403.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NewTrackComponent } from './new-track/new-track.component';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -23,7 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
     AuthModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpClientModule
+    HllHttpClientsModule
   ],
   declarations: [
     AppComponent,

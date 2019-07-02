@@ -25,8 +25,19 @@ export class ProfileComponent {
         'hip hop',
         'mixed'
       ],
-      uri: 'http://localhost:8080/api/public/stream-audio/sample'
-    }
+      uri: 'http://localhost:8080/api/public/track/5d1ac30046c73d87843b0c64/stream'
+    },
+    {
+      title: 'Godzilla Roar',
+      duration: '0:16',
+      likes: 5,
+      tags: [
+        'video-game',
+        'hip hop',
+        'mixed'
+      ],
+      uri: 'http://localhost:8080/api/public/track/5d17c15d6528ffa293a6e6dd/stream'
+    },
   ];
 
   handlePlayBtnClick(selected: Track): void {
