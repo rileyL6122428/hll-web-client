@@ -1,15 +1,30 @@
-<form>
-  <div class="form-group">
-    <label for="audio-file" class="sr-only">Choose File</label>
-    <input
-      id="audio-file"
-      type="file"
-      name="audio-file"
-      [(ngModel)]="audioFile"
-      #fileInput/>
-  </div>
+<section>
+  <h1>Upload Track</h1>
 
-  <div class="form-actions">
-    <button (click)="submit()">Submit</button>
+  <div class="page-content">
+    <hll-link-opening-chest></hll-link-opening-chest>
+
+    <form>
+      <div class="form-group">
+        <label for="track-name" class="sr-only">Track Name</label>
+        <input id="track-name" type="text" class="form-control" placeholder="Track Name">
+      </div>
+
+      <div class="form-group">
+        <label for="audio-file" class="sr-only">Choose File</label>
+        <input
+          id="audio-file"
+          type="file"
+          name="audio-file"
+          [(ngModel)]="audioFile"
+          class="form-control-file"
+          #fileInput/>
+      </div>
+
+      <div class="">
+        <button class="btn btn-dark" (click)="submit()">Submit</button>
+      </div>
+    </form>
   </div>
-</form>
+</section>
+

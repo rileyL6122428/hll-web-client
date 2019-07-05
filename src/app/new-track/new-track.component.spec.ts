@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewTrackComponent } from './new-track.component';
+import { FormsModule } from '@angular/forms';
 
 describe('NewTrackComponent', () => {
   let component: NewTrackComponent;
@@ -8,6 +9,7 @@ describe('NewTrackComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ FormsModule ],
       declarations: [ NewTrackComponent ]
     })
     .compileComponents();
