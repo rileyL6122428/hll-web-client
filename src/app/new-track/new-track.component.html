@@ -7,7 +7,13 @@
     <form>
       <div class="form-group">
         <label for="track-name" class="sr-only">Track Name</label>
-        <input id="track-name" type="text" class="form-control" placeholder="Track Name">
+        <input
+          id="track-name"
+          name="track-name"
+          type="text"
+          class="form-control"
+          placeholder="Track Name"
+          [(ngModel)]="trackName">
       </div>
 
       <div class="form-group">
