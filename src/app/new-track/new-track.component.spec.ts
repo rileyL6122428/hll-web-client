@@ -1,7 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { NewTrackComponent } from './new-track.component';
 import { FormsModule } from '@angular/forms';
+import { LinkOpeningChestComponent } from '../shared/images/link-opening-chest/link-opening-chest.component';
+import { MockComponent } from 'ng-mocks';
 
 describe('NewTrackComponent', () => {
   let component: NewTrackComponent;
@@ -10,7 +11,10 @@ describe('NewTrackComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ FormsModule ],
-      declarations: [ NewTrackComponent ]
+      declarations: [
+        NewTrackComponent,
+        MockComponent(LinkOpeningChestComponent)
+      ]
     })
     .compileComponents();
   }));

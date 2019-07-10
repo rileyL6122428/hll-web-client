@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { AudioHttpClient } from './audio.http';
+import { TrackHttpClient } from './track.http';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
   ],
   providers: [
-    AudioHttpClient
+    TrackHttpClient
   ]
 })
 export class HllHttpClientsModule { }
