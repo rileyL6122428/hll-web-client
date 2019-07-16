@@ -14,6 +14,7 @@ import { HllHttpClientsModule } from './shared/http-clients/http-clients.module'
 import { ImagesModule } from './shared/images/images.module';
 import { SiteLogoComponent } from './shared/site-logo/site-logo.component';
 import { TrackPlayerComponent } from './shared/track-player/track-player.component';
+import { ApiClientConfigModule } from './api-client-config.module';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { TrackPlayerComponent } from './shared/track-player/track-player.compone
     AuthModule,
     BrowserAnimationsModule,
     FormsModule,
-    HllHttpClientsModule
+    HllHttpClientsModule,
+    ApiClientConfigModule
   ],
   declarations: [
     AppComponent,

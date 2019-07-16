@@ -22,13 +22,23 @@
           id="audio-file"
           type="file"
           name="audio-file"
-          [(ngModel)]="audioFile"
           class="form-control-file"
+          (change)="onFileChange($event)"
           #fileInput/>
       </div>
 
       <div class="">
-        <button class="btn btn-dark" (click)="submit()">Submit</button>
+        <button
+          id="submit-button"
+          class="btn btn-dark"
+          (click)="submit()"
+          [attr.disabled]="uploading ? '' : null">
+          <span id="submit-text" *ngIf="!uploading">Submit</span>
+          <ng-container *ngIf="uploading">
+            <span id="loading-text">Loading... </span>
+            <span id="loader-icon" class="spinner-grow spinner-grow-sm text-light"></span>
+          </ng-container>
+        </button>
       </div>
     </form>
   </div>

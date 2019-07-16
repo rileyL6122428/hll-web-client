@@ -8,7 +8,7 @@ export interface TrackClientConfig {
   };
 }
 
-export const trackClientConfigToken = new InjectionToken<TrackClientConfig>('');
+export const trackClientConfigToken = new InjectionToken<TrackClientConfig>('Track-Client-Config');
 
 @Injectable({
   providedIn: 'root'
