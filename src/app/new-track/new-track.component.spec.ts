@@ -5,12 +5,16 @@ import { TrackHttpClient } from '../shared/http-clients/track.http';
 import { LinkOpeningChestComponent } from '../shared/images/link-opening-chest/link-opening-chest.component';
 import { NewTrackComponent } from './new-track.component';
 import { AuthService } from '../shared/auth/auth.service';
+import { Observable, Observer } from 'rxjs';
+import { Router } from '@angular/router';
 
 fdescribe('NewTrackComponent', () => {
 
   let component: NewTrackComponent;
   let fixture: ComponentFixture<NewTrackComponent>;
   let trackClientMock: any;
+  let uploadObserver: Observer<any>;
+  let routerMock: any;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -27,6 +31,10 @@ fdescribe('NewTrackComponent', () => {
           useValue: jasmine.createSpyObj('TrackClientConfig', ['upload'])
         },
         {
+          provide: Router,
+          useValue: jasmine.createSpyObj('Router', ['navigateByUrl'])
+        },
+        {
           provide: AuthService,
           useValue: {}
         }
@@ -35,6 +43,8 @@ fdescribe('NewTrackComponent', () => {
     .compileComponents();
 
     trackClientMock = TestBed.get(TrackHttpClient);
+    routerMock = TestBed.get(Router);
+    _stubUploadObservable();
   }));
 
   beforeEach(fakeAsync(() => {
@@ -82,6 +92,11 @@ fdescribe('NewTrackComponent', () => {
       expect(_getLoaderIcon()).toBeTruthy();
       expect(_getLoadingText()).toBeTruthy();
     });
+
+    it('navigates to profile page on succesful load', async(() => {
+      uploadObserver.next('UPLOAD_SUCCESSFUL');
+      expect(routerMock.navigateByUrl).toHaveBeenCalledWith('/profile');
+    }));
   });
 
   function _getTrackNameInput(): HTMLInputElement {
@@ -102,5 +117,11 @@ fdescribe('NewTrackComponent', () => {
 
   function _getLoadingText(): HTMLButtonElement {
     return fixture.nativeElement.querySelector('#loading-text');
+  }
+
+  function _stubUploadObservable() {
+    trackClientMock.upload.and.returnValue(new Observable<any>(observer => {
+      uploadObserver = observer;
+    }));
   }
 });
