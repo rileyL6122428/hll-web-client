@@ -8,7 +8,7 @@ import { AuthService } from '../shared/auth/auth.service';
 import { Observable, Observer } from 'rxjs';
 import { Router } from '@angular/router';
 
-fdescribe('NewTrackComponent', () => {
+describe('NewTrackComponent', () => {
 
   let component: NewTrackComponent;
   let fixture: ComponentFixture<NewTrackComponent>;
