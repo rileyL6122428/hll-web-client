@@ -1,8 +1,6 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthService } from '../shared/auth/auth.service';
-import { TrackHttpClient } from '../shared/http-clients/track.http';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { TrackHttpClient } from '../shared/http-clients/track.http';
 
 @Component({
   selector: 'hll-new-track',
