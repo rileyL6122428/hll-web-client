@@ -1,8 +1,25 @@
 <section>
   <h1>Upload Track</h1>
 
+  <div
+    *ngIf="showUploadErrorMessage"
+    id="upload-error-message"
+    class="alert alert-secondary"
+    role="alert">
+    An error occurred during upload. Please try again later.
+    <button
+      id="close-upload-error-message"
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="showUploadErrorMessage = false">
+      <span>&times;</span>
+    </button>
+  </div>
+
   <div class="page-content">
     <hll-link-opening-chest></hll-link-opening-chest>
+
 
     <form>
       <div class="form-group">
@@ -33,7 +50,9 @@
           class="btn btn-dark"
           (click)="submit()"
           [attr.disabled]="uploading ? '' : null">
+
           <span id="submit-text" *ngIf="!uploading">Submit</span>
+
           <ng-container *ngIf="uploading">
             <span id="loading-text">Loading... </span>
             <span id="loader-icon" class="spinner-grow spinner-grow-sm text-light"></span>

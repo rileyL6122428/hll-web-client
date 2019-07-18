@@ -76,6 +76,10 @@ fdescribe('NewTrackComponent', () => {
       fixture.detectChanges();
     });
 
+    it('hides error message by default', () => {
+      expect(_getErrorMessage()).toBeFalsy();
+    });
+
     it('delegates upload to trackClient', () => {
       expect(trackClientMock.upload).toHaveBeenCalledWith({
         filename: trackName,
@@ -97,6 +101,27 @@ fdescribe('NewTrackComponent', () => {
       uploadObserver.next('UPLOAD_SUCCESSFUL');
       expect(routerMock.navigateByUrl).toHaveBeenCalledWith('/profile');
     }));
+
+    it('shows an error message if the upload fails', () => {
+      uploadObserver.error('EXAMPLE_ERROR');
+      fixture.detectChanges();
+      expect(_getErrorMessage()).toBeTruthy();
+    });
+
+    it('hides error message when clicking the alert\'s close button', () => {
+      uploadObserver.error('EXAMPLE_ERROR');
+      fixture.detectChanges();
+      _getErrorMessageButton().click();
+      fixture.detectChanges();
+      expect(_getErrorMessage()).toBeFalsy();
+    });
+
+    it('re-enables the submit button if the upload fails', () => {
+      uploadObserver.error('EXAMPLE_ERROR');
+      fixture.detectChanges();
+      expect(_getSubmitButton().disabled).toBe(false);
+    });
+
   });
 
   function _getTrackNameInput(): HTMLInputElement {
@@ -107,16 +132,24 @@ fdescribe('NewTrackComponent', () => {
     return fixture.nativeElement.querySelector('#submit-button');
   }
 
-  function _getSubmitText(): HTMLButtonElement {
+  function _getSubmitText(): HTMLElement {
     return fixture.nativeElement.querySelector('#submit-text');
   }
 
-  function _getLoaderIcon(): HTMLButtonElement {
+  function _getLoaderIcon(): HTMLElement {
     return fixture.nativeElement.querySelector('#loader-icon');
   }
 
-  function _getLoadingText(): HTMLButtonElement {
+  function _getLoadingText(): HTMLElement {
     return fixture.nativeElement.querySelector('#loading-text');
+  }
+
+  function _getErrorMessage(): HTMLElement {
+    return fixture.nativeElement.querySelector('#upload-error-message');
+  }
+
+  function _getErrorMessageButton(): HTMLElement {
+    return fixture.nativeElement.querySelector('#close-upload-error-message');
   }
 
   function _stubUploadObservable() {
@@ -124,4 +157,5 @@ fdescribe('NewTrackComponent', () => {
       uploadObserver = observer;
     }));
   }
+
 });

@@ -12,9 +12,9 @@ import { Router } from '@angular/router';
 export class NewTrackComponent {
 
   trackName = '';
-  private stagedFile: File;
-
   uploading = false;
+  showUploadErrorMessage = false;
+  private stagedFile: File;
 
   constructor(
     private router: Router,
@@ -29,7 +29,14 @@ export class NewTrackComponent {
       file: this.stagedFile,
     })
       .subscribe(
-        () => this.router.navigateByUrl('/profile')
+        () => {
+          this.router.navigateByUrl('/profile');
+        },
+
+        (error) => {
+          this.showUploadErrorMessage = true;
+          this.uploading = false;
+        }
       );
   }
 
