@@ -5,6 +5,7 @@ import { MockComponent } from 'ng-mocks';
 import { SiteLogoComponent } from '../shared/site-logo/site-logo.component';
 import { TrackPlayerComponent } from '../shared/track-player/track-player.component';
 import { AuthService } from '../shared/auth/auth.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ProfileComponent', () => {
 
@@ -13,6 +14,10 @@ describe('ProfileComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule
+      ],
+
       declarations: [
         MockComponent(SiteLogoComponent),
         MockComponent(TrackPlayerComponent),
