@@ -40,7 +40,7 @@
           type="file"
           name="audio-file"
           class="form-control-file"
-          (change)="onFileChange($event)"
+          (change)="onFileChange($event.target.files[0])"
           #fileInput/>
       </div>
 
