@@ -5,11 +5,4 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './link-opening-chest.component.html',
   styleUrls: ['./link-opening-chest.component.scss']
 })
-export class LinkOpeningChestComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-}
+export class LinkOpeningChestComponent { }

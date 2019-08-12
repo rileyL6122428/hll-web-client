@@ -108,7 +108,7 @@ describe('NewTrackComponent', () => {
       expect(_getErrorMessage()).toBeTruthy();
     });
 
-    it('hides error message when clicking the alert\'s close button', () => {
+    it('hides error message when clicking the error message\'s close button', () => {
       uploadObserver.error('EXAMPLE_ERROR');
       fixture.detectChanges();
       _getErrorMessageButton().click();
