@@ -33,10 +33,6 @@ describe('NewTrackComponent', () => {
         {
           provide: Router,
           useValue: jasmine.createSpyObj('Router', ['navigateByUrl'])
-        },
-        {
-          provide: AuthService,
-          useValue: {}
         }
       ]
     })
