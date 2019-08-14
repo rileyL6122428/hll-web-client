@@ -107,7 +107,7 @@ describe('NewTrackComponent', () => {
     it('hides error message when clicking the error message\'s close button', () => {
       uploadObserver.error('EXAMPLE_ERROR');
       fixture.detectChanges();
-      _getErrorMessageButton().click();
+      _getErrorMessageCloseButton().click();
       fixture.detectChanges();
       expect(_getErrorMessage()).toBeFalsy();
     });
@@ -144,7 +144,7 @@ describe('NewTrackComponent', () => {
     return fixture.nativeElement.querySelector('#upload-error-message');
   }
 
-  function _getErrorMessageButton(): HTMLElement {
+  function _getErrorMessageCloseButton(): HTMLElement {
     return fixture.nativeElement.querySelector('#close-upload-error-message');
   }
 
