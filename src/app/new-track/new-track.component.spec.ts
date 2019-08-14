@@ -78,8 +78,8 @@ describe('NewTrackComponent', () => {
 
     it('delegates upload to trackClient', () => {
       expect(trackClientMock.upload).toHaveBeenCalledWith({
-        filename: trackName,
-        file: trackFile,
+        name: trackName,
+        contents: trackFile,
       });
     });
 

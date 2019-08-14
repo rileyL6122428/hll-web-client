@@ -44,8 +44,8 @@ describe('TrackHttpClient', () => {
   describe('#upload', () => {
     it('sends a POST request to the configured endpoint', () => {
       trackClient.upload({
-        file: new File([], 'EXAMPLE_SELECTED_FILE_NAME'),
-        filename: 'EXAMPLE_FILE_NAME'
+        contents: new File([], 'EXAMPLE_SELECTED_FILE_NAME'),
+        name: 'EXAMPLE_FILE_NAME'
       })
         .subscribe();
 
@@ -54,8 +54,8 @@ describe('TrackHttpClient', () => {
 
     it('passes the provided file and filename in the request payload', () => {
       trackClient.upload({
-        file: new File([], 'EXAMPLE_SELECTED_FILE_NAME'),
-        filename: 'EXAMPLE_FILE_NAME'
+        contents: new File([], 'EXAMPLE_SELECTED_FILE_NAME'),
+        name: 'EXAMPLE_FILE_NAME'
       })
         .subscribe();
 
@@ -71,8 +71,8 @@ describe('TrackHttpClient', () => {
       authServiceMock.idToken = 'EXAMPLE_ID_TOKEN';
 
       trackClient.upload({
-        file: new File([], 'EXAMPLE_SELECTED_FILE_NAME'),
-        filename: 'EXAMPLE_FILE_NAME'
+        contents: new File([], 'EXAMPLE_SELECTED_FILE_NAME'),
+        name: 'EXAMPLE_FILE_NAME'
       })
         .subscribe();
 

@@ -9,10 +9,10 @@ import { TrackHttpClient } from '../shared/http-clients/track.http';
 })
 export class NewTrackComponent {
 
-  trackName = '';
   uploading = false;
   showUploadErrorMessage = false;
-  private stagedFile: File;
+  trackName = '';
+  private trackContents: File;
 
   constructor(
     private router: Router,
@@ -23,8 +23,8 @@ export class NewTrackComponent {
     this.uploading = true;
 
     this.trackClient.upload({
-      filename: this.trackName,
-      file: this.stagedFile,
+      name: this.trackName,
+      contents: this.trackContents,
     })
       .subscribe(
         () => {
@@ -40,7 +40,7 @@ export class NewTrackComponent {
 
   onFileChange(file: File): void {
     if (file) {
-      this.stagedFile = file;
+      this.trackContents = file;
     }
   }
 

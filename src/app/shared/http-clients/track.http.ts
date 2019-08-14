@@ -22,9 +22,9 @@ export class TrackHttpClient {
     private auth: AuthService
   ) { }
 
-  upload(params: { file: File, filename: string }): Observable<any> {
+  upload(params: { name: string, contents: File }): Observable<any> {
     const payload = new FormData();
-    payload.append('audio-file', params.file, params.filename);
+    payload.append('audio-file', params.contents, params.name);
     return this.httpClient.post(
       this.config.urls.upload,
       payload,
