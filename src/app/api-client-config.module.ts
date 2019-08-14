@@ -7,7 +7,7 @@ import { trackClientConfigToken, TrackClientConfig } from './shared/http-clients
       provide: trackClientConfigToken,
       useValue: {
         urls: {
-          upload: 'http://localhost:8080/api/public/track'
+          upload: 'http://localhost:8080/api/private/track'
         }
       } as TrackClientConfig
     }

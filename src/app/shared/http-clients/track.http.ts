@@ -1,6 +1,7 @@
 import { Injectable, InjectionToken, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
 export interface TrackClientConfig {
   urls: {
@@ -17,7 +18,8 @@ export class TrackHttpClient {
 
   constructor(
     private httpClient: HttpClient,
-    @Inject(trackClientConfigToken) private config: TrackClientConfig
+    @Inject(trackClientConfigToken) private config: TrackClientConfig,
+    private auth: AuthService
   ) { }
 
   upload(params: { file: File, filename: string }): Observable<any> {
@@ -28,7 +30,7 @@ export class TrackHttpClient {
       payload,
       {
         headers: new HttpHeaders({
-          Authorization: 'PLACEHOLDER'
+          Authorization: `Bearer ${this.auth.idToken}`
         })
       }
     );
