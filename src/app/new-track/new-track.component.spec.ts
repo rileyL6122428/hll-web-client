@@ -57,15 +57,15 @@ describe('NewTrackComponent', () => {
   describe('file upload', () => {
 
     let trackName: string;
-    let trackFile: File;
+    let trackContents: File;
 
     beforeEach(() => {
       trackName = 'EXAMPLE_TRACK_UPLOAD_NAME';
       _getTrackNameInput().value = trackName;
       _getTrackNameInput().dispatchEvent(new Event('input'));
 
-      trackFile = new File([], 'EXAMPLE_LOCAL_FILE_NAME');
-      component.onFileChange(trackFile);
+      trackContents = new File([], 'EXAMPLE_LOCAL_FILE_NAME');
+      component.onFileChange(trackContents);
 
       _getSubmitButton().click();
 
@@ -79,7 +79,7 @@ describe('NewTrackComponent', () => {
     it('delegates upload to trackClient', () => {
       expect(trackClientMock.upload).toHaveBeenCalledWith({
         name: trackName,
-        contents: trackFile,
+        contents: trackContents,
       });
     });
 
