@@ -16,9 +16,9 @@ export class AuthService {
   });
 
   constructor(public router: Router) {
-    this.idToken = '';
-    this.accessToken = '';
-    this.expiresAt = 0;
+    this.idToken = this.idToken || '';
+    this.accessToken = this.accessToken || '';
+    this.expiresAt = this.expiresAt || 0;
   }
 
   public login(): void {

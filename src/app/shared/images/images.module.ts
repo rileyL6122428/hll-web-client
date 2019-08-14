@@ -8,6 +8,7 @@ import { GuitarZoraLinkComponent } from './guitar-zora-link/guitar-zora-link.com
 import { LyreSheikComponent } from './lyre-sheik/lyre-sheik.component';
 import { MaskSalesmanComponent } from './mask-salesman/mask-salesman.component';
 import { PauseButtonComponent } from './pause-button/pause-button.component';
+import { LinkOpeningChestComponent } from './link-opening-chest/link-opening-chest.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { PauseButtonComponent } from './pause-button/pause-button.component';
     LyreSheikComponent,
     MaskSalesmanComponent,
     PauseButtonComponent,
+    LinkOpeningChestComponent,
   ],
   exports: [
     OcarinaLinkComponent,
@@ -31,6 +33,7 @@ import { PauseButtonComponent } from './pause-button/pause-button.component';
     LyreSheikComponent,
     MaskSalesmanComponent,
     PauseButtonComponent,
+    LinkOpeningChestComponent,
   ]
 })
 export class ImagesModule { }
