@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Track } from '../shared/track-player/track.api';
 import { AuthService } from '../shared/auth/auth.service';
+import { TrackHttpClient } from '../shared/http-clients/track.http';
 
 @Component({
   selector: 'hll-profile',
@@ -10,7 +11,8 @@ import { AuthService } from '../shared/auth/auth.service';
 export class ProfileComponent {
 
   constructor(
-    private auth: AuthService
+    private auth: AuthService,
+    private trackClient: TrackHttpClient
   ) { }
 
   selected: Track = null;
@@ -39,6 +41,11 @@ export class ProfileComponent {
     //   uri: 'http://localhost:8080/api/public/track/5d17c15d6528ffa293a6e6dd/stream'
     // },
   ];
+
+  ngOnInit(): void {
+    this.trackClient.getTracks({ userId: 'rileylittlefield@ymail.com' })
+      .subscribe((response) => console.log(response));
+  }
 
   handlePlayBtnClick(selected: Track): void {
     if (this.selected === selected) {

@@ -36,4 +36,15 @@ export class TrackHttpClient {
     );
   }
 
+  getTracks(params: { userId: string }): Observable<any> {
+    const url = 'http://localhost:8080/api/public/tracks';
+    const options = {
+      params: {
+        'artist-id': params.userId
+      }
+    };
+
+    return this.httpClient.get(url, options);
+  }
+
 }
