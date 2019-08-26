@@ -51,7 +51,7 @@ export class TrackPlayerComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.audioPlayer.element = this.audioPlayerViewChild.nativeElement;
+    // CAN THIS BLOCK BE DELETED
   }
 
   onAudioElementUpdate(): void {
@@ -61,6 +61,10 @@ export class TrackPlayerComponent implements OnInit, AfterViewInit {
      * REMOVING THIS BLOCK WILL PREVENT TRACK PROGRESS UI
      * FROM UPDATING
      */
+    debugger;
+    if (this.audioPlayerViewChild.nativeElement && !this.audioPlayer.initialized) {
+      this.audioPlayer.element = this.audioPlayerViewChild.nativeElement;
+    }
   }
 
   selectCurrentTime(mouseX: number, progressBar: DOMRect): void {
@@ -88,6 +92,10 @@ export class TrackPlayerComponent implements OnInit, AfterViewInit {
 
   get bufferedAudioRanges(): BufferedAudio[] {
     return this.audioPlayer.bufferedAudioRanges;
+  }
+
+  get readyToBuffer(): boolean {
+    return this.audioPlayer.readyToBuffer;
   }
 
 }

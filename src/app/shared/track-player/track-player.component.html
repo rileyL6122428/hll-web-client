@@ -51,10 +51,11 @@
   </div>
 </div>
 
-<!-- <audio src="{{ track?.uri }}"
+<audio *ngIf="readyToBuffer"
+  src="{{ track?.uri }}"
   (timeupdate)="onAudioElementUpdate()"
   (loadedmetadata)="onAudioElementUpdate()"
   (progress)="onAudioElementUpdate()"
   #audio>
   Your browser does not support the <code>audio</code> element.
-</audio> -->
+</audio>
