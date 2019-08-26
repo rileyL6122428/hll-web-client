@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Track } from '../shared/track-player/track.api';
 import { AuthService } from '../shared/auth/auth.service';
 import { TrackHttpClient } from '../shared/http-clients/track.http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'hll-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
@@ -17,32 +18,17 @@ export class ProfileComponent {
 
   selected: Track = null;
 
-  tracks: Track[] = [
-    // {
-    //   title: 'Hey Look Ma I Made it!',
-    //   duration: '3:54',
-    //   likes: 5,
-    //   tags: [
-    //     'video-game',
-    //     'hip hop',
-    //     'mixed'
-    //   ],
-    //   uri: 'http://localhost:8080/api/public/track/5d1ac30046c73d87843b0c64/stream'
-    // },
-  ];
+  tracks: Track[] = [];
 
   ngOnInit(): void {
     this.trackClient
       .getTracks({ userId: 'rileylittlefield@ymail.com' })
       .subscribe((response) => {
         this.tracks = response.map(unmappedTrack => ({
-            uri: `http://localhost:8080/api/public/track/${unmappedTrack.id}/stream`,
-            title: unmappedTrack.name,
-            tags: [],
-            likes: 0,
-            duration: (unmappedTrack.duration as number).toFixed(2)
-          } as Track)
-        );
+          uri: environment.API.TRACKS.STREAM_SINGLE_TRACK({ trackId: unmappedTrack.id }),
+          title: unmappedTrack.name,
+          duration: (unmappedTrack.duration as number).toFixed(2)
+        } as Track));
       });
   }
 

@@ -59,8 +59,6 @@ describe('TrackPlayerComponent', () => {
     track = {
       title: 'Clock Town Remix',
       duration: '3:54',
-      likes: 5,
-      tags: ['Video Game', 'Remix'],
       uri: 'http://localhost:9876/base/test-assets/audio/clock-town-remix.mp3'
     } as Track;
   }));
@@ -243,21 +241,6 @@ describe('TrackPlayerComponent', () => {
       expect(trackHeader.innerText).toContain(track.title);
       expect(trackHeader.innerText).toContain(track.duration);
     });
-
-    it('renders track-populatity-tags with heart count and tag list', () => {
-      const trackPopularityAndTags = fixture.elementRef.nativeElement.querySelector('.track-details .track-popularity-tags') as HTMLElement;
-      expect(trackPopularityAndTags.innerText).toContain(`${track.likes} hearts`);
-      track.tags.forEach(tag => {
-        expect(trackPopularityAndTags.innerText).toContain(tag);
-      });
-    });
-  });
-
-  describe('ngAfterViewInit', () => {
-    it('passes the HTML audioElement to the trackPlayerService', () => {
-      fixture.detectChanges();
-      expect(trackPlayerService.element).toBe(_getAudioElement());
-    });
   });
 
   describe('Progress Indicator', () => {
@@ -333,6 +316,30 @@ describe('TrackPlayerComponent', () => {
         fixture.elementRef.nativeElement.querySelectorAll('.buffered-fill, .play-progress-fill')
       );
     }
+  });
+
+  describe('audioElement', () => {
+    it('does not render when TrackPlayerService is not ready to buffer', () => {
+      trackPlayerService.readyToBuffer = false;
+      fixture.detectChanges();
+      expect(_getAudioElement()).toBeFalsy();
+    });
+
+    it('renders when TrackPlayerService is ready to buffer', () => {
+      trackPlayerService.readyToBuffer = true;
+      fixture.detectChanges();
+      expect(_getAudioElement()).toBeTruthy();
+    });
+
+    it('is set on the TrackPlayerService when loaded into the DOM', () => {
+      trackPlayerService.readyToBuffer = true;
+      fixture.detectChanges();
+
+      _getAudioElement().dispatchEvent(new Event('loadedmetadata'));
+      fixture.detectChanges();
+
+      expect(trackPlayerService.element).toEqual(_getAudioElement());
+    });
   });
 
   function _getAudioElement(): HTMLAudioElement {

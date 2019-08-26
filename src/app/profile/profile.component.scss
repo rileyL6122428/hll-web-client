@@ -50,7 +50,7 @@ main {
   margin-top: 3.75rem;
 }
 
-@media (max-width: $lg-breakpoints) {
+@media (max-width: $lg-breakpoint) {
   header, main {
     padding: 0 2.25rem
   }
@@ -64,7 +64,7 @@ main {
     margin: auto;
   }
 
-  div.nav {
+  .nav {
     display: none;
   }
 

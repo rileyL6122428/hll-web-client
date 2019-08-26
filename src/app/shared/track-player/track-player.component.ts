@@ -24,7 +24,7 @@ import { TrackPlayer } from './track-player.service';
   ],
   providers: [ TrackPlayer ]
 })
-export class TrackPlayerComponent implements OnInit, AfterViewInit {
+export class TrackPlayerComponent implements OnInit {
 
   @Input() track: Track;
   @Output() playBtnClick: EventEmitter<Track>;
@@ -50,18 +50,7 @@ export class TrackPlayerComponent implements OnInit, AfterViewInit {
     this.selectedCharacterIndex = Math.floor(Math.random() * characterTotal);
   }
 
-  ngAfterViewInit(): void {
-    // CAN THIS BLOCK BE DELETED
-  }
-
   onAudioElementUpdate(): void {
-    /**
-     * PLACEHOLDER TO TRIGGER ANGULAR CHANGE DETECTION
-     *
-     * REMOVING THIS BLOCK WILL PREVENT TRACK PROGRESS UI
-     * FROM UPDATING
-     */
-    debugger;
     if (this.audioPlayerViewChild.nativeElement && !this.audioPlayer.initialized) {
       this.audioPlayer.element = this.audioPlayerViewChild.nativeElement;
     }

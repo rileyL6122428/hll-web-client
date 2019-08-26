@@ -1,7 +1,7 @@
 import { HLLEnvironment } from './environment.interface';
 
 export const environment: HLLEnvironment = {
-  production: true,
+  production: false,
 
   API: {
     TRACKS: {
