@@ -22,7 +22,8 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.trackClient
-      .getTracks({ userId: 'rileylittlefield@ymail.com' })
+      // .getTracks({ userId: 'rileylittlefield@ymail.com' })
+      .getTracks({ userId: this.auth.userID })
       .subscribe((response) => {
         this.tracks = response.map(unmappedTrack => ({
           uri: environment.API.TRACKS.STREAM_SINGLE_TRACK({ trackId: unmappedTrack.id }),
