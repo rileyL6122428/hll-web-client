@@ -17,19 +17,43 @@ describe('TrackPlayerService', () => {
       'play',
       'pause',
     ]);
-    trackPlayer.element = audioElement;
   });
 
   it('instantiates', () => expect(trackPlayer).toBeTruthy());
 
+  describe('#set element', () => {
+    beforeEach(() => trackPlayer.element = audioElement);
+
+    it('tells the audio element to play', () => {
+      expect(audioElement.play).toHaveBeenCalledTimes(1);
+    });
+
+    it('registers the track player as initialized', () => {
+      expect(trackPlayer.initialized).toBe(true);
+    });
+  });
+
   describe('#play', () => {
-    it('tells the audioElement to play', () => {
+    it('signals that the track player is ready to buffer', () => {
       trackPlayer.play();
-      expect(audioElement.play).toHaveBeenCalled();
+      expect(trackPlayer.readyToBuffer).toBe(true);
+    });
+
+    it('does not tell the audio element to play when the audio element is not set', () => {
+      trackPlayer.play();
+      expect(audioElement.play).not.toHaveBeenCalled();
+    });
+
+    it('tells the audioElement to play when initialized', () => {
+      trackPlayer.element = audioElement;
+      trackPlayer.play();
+      expect(audioElement.play).toHaveBeenCalledTimes(2);
     });
   });
 
   describe('#pause', () => {
+    beforeEach(() => trackPlayer.element = audioElement);
+
     it('tells the audioElement to pause', () => {
       trackPlayer.pause();
       expect(audioElement.pause).toHaveBeenCalled();
@@ -37,6 +61,8 @@ describe('TrackPlayerService', () => {
   });
 
   describe('#set volume', () => {
+    beforeEach(() => trackPlayer.element = audioElement);
+
     it('sets the volume on the audioElement as a number', () => {
       trackPlayer.volume = '0.4';
       expect(audioElement.volume).toEqual(0.4);
@@ -44,6 +70,8 @@ describe('TrackPlayerService', () => {
   });
 
   describe('#set currentTime', () => {
+    beforeEach(() => trackPlayer.element = audioElement);
+
     it('sets the time as the provided decimal times the track duration', () => {
       audioElement.duration = 6;
       trackPlayer.currentTime = 0.5;
@@ -54,6 +82,8 @@ describe('TrackPlayerService', () => {
   describe('#get bufferedAudioRanges', () => {
 
     beforeEach(() => {
+      trackPlayer.element = audioElement;
+
       audioElement.duration = 180;
       audioElement.currentTime = 61;
 

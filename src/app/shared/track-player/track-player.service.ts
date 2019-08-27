@@ -11,7 +11,6 @@ export class TrackPlayer {
   private _initialized = false;
 
   set element(audioElement: HTMLAudioElement) {
-    debugger;
     if (audioElement && !this._initialized) {
       this.audioElement = audioElement;
       this._initialized = true;
@@ -20,7 +19,6 @@ export class TrackPlayer {
   }
 
   play(): void {
-    debugger;
     if (this.audioElement) {
       this.audioElement.play();
     }
@@ -31,7 +29,6 @@ export class TrackPlayer {
   }
 
   pause(): void {
-    debugger;
     if (this.audioElement) {
       this.audioElement.pause();
     }
