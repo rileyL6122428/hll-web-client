@@ -11,7 +11,7 @@
 <main>
   <div class="tracks-header">
     <h2>Tracks</h2>
-    <a [routerLink]="['/upload-track']">New Track</a>
+    <a class="btn btn-dark new-track" [routerLink]="['/upload-track']">New Track</a>
   </div>
   <ul class="tracks">
     <li class="track" *ngFor="let track of tracks">

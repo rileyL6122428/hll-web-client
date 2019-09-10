@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as auth0 from 'auth0-js';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,10 @@ export class AuthService {
     scope: 'openid profile'
   });
 
-  constructor(public router: Router) {
+  constructor(
+    public router: Router,
+    private jwtDecoder: JwtHelperService
+  ) {
     this.idToken = this.idToken || '';
     this.accessToken = this.accessToken || '';
     this.expiresAt = this.expiresAt || 0;
@@ -79,5 +83,9 @@ export class AuthService {
 
   private set expiresAt(time: number) {
     sessionStorage.setItem('expires_at', time.toString());
+  }
+
+  get userID(): string {
+    return this.jwtDecoder.decodeToken(this.idToken).name;
   }
 }

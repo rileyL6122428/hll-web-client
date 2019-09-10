@@ -24,7 +24,7 @@ import { TrackPlayer } from './track-player.service';
   ],
   providers: [ TrackPlayer ]
 })
-export class TrackPlayerComponent implements OnInit, AfterViewInit {
+export class TrackPlayerComponent implements OnInit {
 
   @Input() track: Track;
   @Output() playBtnClick: EventEmitter<Track>;
@@ -50,17 +50,10 @@ export class TrackPlayerComponent implements OnInit, AfterViewInit {
     this.selectedCharacterIndex = Math.floor(Math.random() * characterTotal);
   }
 
-  ngAfterViewInit(): void {
-    this.audioPlayer.element = this.audioPlayerViewChild.nativeElement;
-  }
-
   onAudioElementUpdate(): void {
-    /**
-     * PLACEHOLDER TO TRIGGER ANGULAR CHANGE DETECTION
-     *
-     * REMOVING THIS BLOCK WILL PREVENT TRACK PROGRESS UI
-     * FROM UPDATING
-     */
+    if (this.audioPlayerViewChild.nativeElement && !this.audioPlayer.initialized) {
+      this.audioPlayer.element = this.audioPlayerViewChild.nativeElement;
+    }
   }
 
   selectCurrentTime(mouseX: number, progressBar: DOMRect): void {
@@ -88,6 +81,10 @@ export class TrackPlayerComponent implements OnInit, AfterViewInit {
 
   get bufferedAudioRanges(): BufferedAudio[] {
     return this.audioPlayer.bufferedAudioRanges;
+  }
+
+  get readyToBuffer(): boolean {
+    return this.audioPlayer.readyToBuffer;
   }
 
 }

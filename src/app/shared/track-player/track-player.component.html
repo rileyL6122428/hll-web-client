@@ -27,15 +27,6 @@
       <p>{{ track.duration }}</p>
     </div>
 
-    <div class="track-popularity-tags">
-      <p class="likes">{{ track.likes }} hearts</p>
-      <ul class="tags">
-        <li class="tag" *ngFor="let tag of track.tags">
-          {{ tag }}
-        </li>
-      </ul>
-    </div>
-
     <input class="volume-slider"
       type="range"
       min="0"
@@ -60,7 +51,8 @@
   </div>
 </div>
 
-<audio src="{{ track?.uri }}"
+<audio *ngIf="readyToBuffer"
+  src="{{ track?.uri }}"
   (timeupdate)="onAudioElementUpdate()"
   (loadedmetadata)="onAudioElementUpdate()"
   (progress)="onAudioElementUpdate()"

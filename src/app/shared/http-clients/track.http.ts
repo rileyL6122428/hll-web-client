@@ -6,6 +6,7 @@ import { AuthService } from '../auth/auth.service';
 export interface TrackClientConfig {
   urls: {
     upload: string;
+    getAllForUser: string;
   };
 }
 
@@ -34,6 +35,17 @@ export class TrackHttpClient {
         })
       }
     );
+  }
+
+  getTracks(params: { userId: string }): Observable<any> {
+    const url = this.config.urls.getAllForUser;
+    const options = {
+      params: {
+        'artist-id': params.userId
+      }
+    };
+
+    return this.httpClient.get(url, options);
   }
 
 }

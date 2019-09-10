@@ -1,4 +1,6 @@
-header, main {
+@import '../scss-vars/profile-vars.scss';
+
+header {
   padding: 0 1.6875rem;
 }
 
@@ -32,10 +34,49 @@ main {
 .tracks-header {
   display: flex;
   justify-content: space-between;
+
+  .new-track {
+    height: fit-content;
+    color: white;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
 
 .tracks .track {
   position: relative;
   display: flex;
   margin-top: 3.75rem;
+}
+
+@media (max-width: $lg-breakpoint) {
+  header, main {
+    padding: 0 2.25rem
+  }
+
+  header {
+    padding-top: 0.6875rem;
+    margin-bottom: 1.5rem;
+  }
+
+  hll-site-logo {
+    margin: auto;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  hll-track-player {
+    width: 100%;
+  }
+
+  .tracks .track:first-child {
+    margin-top: 1.75rem;
+  }
+
+  .tracks .track {
+    margin-top: 2.75rem;
+  }
 }

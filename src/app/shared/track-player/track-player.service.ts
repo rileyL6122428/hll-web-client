@@ -7,14 +7,24 @@ import { BufferedPlayBack as BufferedAudio } from './buffered-audio.api';
 export class TrackPlayer {
 
   private audioElement: HTMLAudioElement;
+  private _readyToBuffer = false;
+  private _initialized = false;
 
   set element(audioElement: HTMLAudioElement) {
-    this.audioElement = audioElement;
+    if (audioElement && !this._initialized) {
+      this.audioElement = audioElement;
+      this._initialized = true;
+      this.play();
+    }
   }
 
   play(): void {
     if (this.audioElement) {
       this.audioElement.play();
+    }
+
+    if (!this._readyToBuffer) {
+      this._readyToBuffer = true;
     }
   }
 
@@ -35,6 +45,14 @@ export class TrackPlayer {
 
   set currentTime(currentTimeDecimal: number) {
     this.audioElement.currentTime = currentTimeDecimal * this.audioElement.duration;
+  }
+
+  get initialized(): boolean {
+    return this._initialized;
+  }
+
+  get readyToBuffer(): boolean {
+    return this._readyToBuffer;
   }
 
   get bufferedAudioRanges(): BufferedAudio[] {
