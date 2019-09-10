@@ -319,7 +319,7 @@ describe('TrackPlayerComponent', () => {
   });
 
   describe('audioElement', () => {
-    it('does not render when TrackPlayerService is not ready to buffer', () => {
+    it('is not rendered when TrackPlayerService is not ready to buffer', () => {
       trackPlayerService.readyToBuffer = false;
       fixture.detectChanges();
       expect(_getAudioElement()).toBeFalsy();
