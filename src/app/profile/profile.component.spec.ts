@@ -67,7 +67,7 @@ describe('ProfileComponent', () => {
       });
     });
 
-    it('maps the list of tracks and renders a track component for each response track', () => {
+    it('maps fetched tracks and renders a track component for each response track', () => {
       fixture.detectChanges();
 
       const unmappedTracks: any[] = [
