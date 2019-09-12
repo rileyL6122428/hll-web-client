@@ -139,6 +139,17 @@ describe('TrackPlayerComponent', () => {
     }
   });
 
+  describe('Delete Button', () => {
+    it('emits a delete event', (done) => {
+      component.deleteEventEmitter.subscribe((deletedTrack: Track) => {
+        expect(track).toBe(deletedTrack);
+        done();
+      });
+      const deleteButton = _getDeleteButton();
+      deleteButton.click();
+    });
+  });
+
   describe('Volume Slider', () => {
 
     it(`starts with value equal to '1'`, () => {
@@ -347,6 +358,10 @@ describe('TrackPlayerComponent', () => {
   }
 
   function _getPlayButtonElement(): HTMLButtonElement {
-    return fixture.elementRef.nativeElement.querySelector('button');
+    return fixture.elementRef.nativeElement.querySelector('.play-button');
+  }
+
+  function _getDeleteButton(): HTMLButtonElement {
+    return fixture.elementRef.nativeElement.querySelector('.delete-button');
   }
 });
