@@ -2,6 +2,7 @@ import { Injectable, InjectionToken, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { Track } from '../track-player/track.api';
 
 export interface TrackClientConfig {
   urls: {
@@ -46,6 +47,10 @@ export class TrackHttpClient {
     };
 
     return this.httpClient.get(url, options);
+  }
+
+  delete(track: Track): Observable<any> {
+    return null;
   }
 
 }

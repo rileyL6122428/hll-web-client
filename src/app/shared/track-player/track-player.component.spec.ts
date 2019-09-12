@@ -141,7 +141,7 @@ describe('TrackPlayerComponent', () => {
 
   describe('Delete Button', () => {
     it('emits a delete event', (done) => {
-      component.deleteEventEmitter.subscribe((deletedTrack: Track) => {
+      component.deleteBtnClick.subscribe((deletedTrack: Track) => {
         expect(track).toBe(deletedTrack);
         done();
       });

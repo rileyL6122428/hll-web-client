@@ -40,6 +40,13 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  handleDeleteBtnClick(track: Track, trackIndex: number): void {
+    debugger;
+    this.trackClient.delete(track).subscribe();
+    this.tracks.splice(trackIndex, 1);
+    console.log('sup!');
+  }
+
   logout(): void {
     this.auth.logout();
   }
