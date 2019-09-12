@@ -52,6 +52,32 @@ $play-button-margin-top: 2rem;
     }
   }
 
+  .delete-button {
+    position: absolute;
+    top: -0.85rem;
+    left: 29.5rem;
+
+    border: .19rem solid black;
+    border-radius: 35px;
+    width: 2rem;
+    height: 2rem;
+
+    svg {
+      display: block;
+      margin: auto;
+
+
+
+    }
+
+    &:hover {
+      background-color: black;
+      svg {
+        fill: white;
+      }
+    }
+  }
+
   .track-details {
     width: 25rem;
     margin-left: .5rem;
@@ -98,7 +124,16 @@ $play-button-margin-top: 2rem;
 }
 
 @media (max-width: $lg-breakpoint) {
-  .track-details {
-    width: 100%;
+  .track-container {
+    .track-details {
+      width: 100%;
+    }
+
+    .delete-button {
+      // left: 27rem;
+      left: 95%;
+      // top: -1.45rem;
+      top: -2rem;
+    }
   }
 }
