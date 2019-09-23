@@ -25,6 +25,7 @@ export class ProfileComponent implements OnInit {
       .getTracks({ userId: this.auth.userID })
       .subscribe((response) => {
         this.tracks = response.map(unmappedTrack => ({
+          id: unmappedTrack.id,
           uri: environment.API.TRACKS.STREAM_SINGLE_TRACK({ trackId: unmappedTrack.id }),
           title: unmappedTrack.name,
           duration: (unmappedTrack.duration as number).toFixed(2)
@@ -41,7 +42,6 @@ export class ProfileComponent implements OnInit {
   }
 
   handleDeleteBtnClick(track: Track, trackIndex: number): void {
-    debugger;
     this.trackClient.delete(track).subscribe();
     this.tracks.splice(trackIndex, 1);
     console.log('sup!');

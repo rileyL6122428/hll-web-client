@@ -95,6 +95,7 @@ describe('ProfileComponent', () => {
         const mappedTrack = component.track;
         const unmappedTrack = unmappedTracks[index];
 
+        expect(mappedTrack.id).toEqual(unmappedTrack.id);
         expect(mappedTrack.title).toEqual(unmappedTrack.name);
         expect(mappedTrack.duration).toEqual(`${unmappedTrack.duration}.00`);
         expect(mappedTrack.uri)

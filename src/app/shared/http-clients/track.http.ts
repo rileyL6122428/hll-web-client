@@ -8,6 +8,7 @@ export interface TrackClientConfig {
   urls: {
     upload: string;
     getAllForUser: string;
+    delete: (trackId: string) => string;
   };
 }
 
@@ -31,9 +32,7 @@ export class TrackHttpClient {
       this.config.urls.upload,
       payload,
       {
-        headers: new HttpHeaders({
-          Authorization: `Bearer ${this.auth.idToken}`
-        })
+        headers: this.protectedEndpointHeaders
       }
     );
   }
@@ -50,7 +49,18 @@ export class TrackHttpClient {
   }
 
   delete(track: Track): Observable<any> {
-    return null;
+    return this.httpClient.delete(
+      this.config.urls.delete(track.id),
+      {
+        headers: this.protectedEndpointHeaders
+      }
+    );
+  }
+
+  private get protectedEndpointHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      Authorization: `Bearer ${this.auth.idToken}`
+    });
   }
 
 }
