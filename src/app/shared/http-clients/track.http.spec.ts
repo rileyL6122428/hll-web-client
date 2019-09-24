@@ -113,5 +113,29 @@ describe('TrackHttpClient', () => {
       const headers = expected.request.headers;
       expect(headers.get('Authorization')).toEqual('Bearer EXAMPLE_ID_TOKEN');
     });
+
+    it('emits the unmapped, deleted track when successful', (done) => {
+      const responseTrack = {};
+
+      trackClient.delete(track).subscribe((emitted) => {
+        expect(emitted).toBe(responseTrack);
+        done();
+      });
+
+      const expected = testController.expectOne(config.urls.delete(track.id));
+      expected.flush({ track: responseTrack });
+    });
+
+    it('forwards an error when the request errors out', (done) => {
+      trackClient.delete(track).subscribe(() => {},
+      (error: ErrorEvent) => {
+        expect(error.message)
+          .toEqual('Http failure response for EXAMPLE_TRACK_DELETION_URL/EXAMPLE_TRACK_ID: 0 ');
+        done();
+      });
+
+      const expected = testController.expectOne(config.urls.delete(track.id));
+      expected.error(new ErrorEvent('EXAMPLE_ERROR'));
+    });
   });
 });

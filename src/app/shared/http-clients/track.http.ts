@@ -1,6 +1,7 @@
 import { Injectable, InjectionToken, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 import { Track } from '../track-player/track.api';
 
@@ -54,7 +55,10 @@ export class TrackHttpClient {
       {
         headers: this.protectedEndpointHeaders
       }
-    );
+    )
+      .pipe(
+        map((response: any) => response.track)
+      );
   }
 
   private get protectedEndpointHeaders(): HttpHeaders {
