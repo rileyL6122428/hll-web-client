@@ -18,6 +18,7 @@ describe('ProfileComponent', () => {
   let authServiceMock: any;
   let trackClientMock: any;
   let getTracksObserver: Observer<any>;
+  let deleteTrackObserver: Observer<any>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -38,7 +39,7 @@ describe('ProfileComponent', () => {
         },
         {
           provide: TrackHttpClient,
-          useValue: jasmine.createSpyObj('TrackHttpClient', ['getTracks'])
+          useValue: jasmine.createSpyObj('TrackHttpClient', ['getTracks', 'delete'])
         }
       ]
     })
@@ -52,6 +53,7 @@ describe('ProfileComponent', () => {
     authServiceMock = TestBed.get(AuthService);
     trackClientMock = TestBed.get(TrackHttpClient);
     _stubGetTracks();
+    _stubDeleteTrack();
   });
 
   it('should create', () => {
@@ -93,6 +95,7 @@ describe('ProfileComponent', () => {
         const mappedTrack = component.track;
         const unmappedTrack = unmappedTracks[index];
 
+        expect(mappedTrack.id).toEqual(unmappedTrack.id);
         expect(mappedTrack.title).toEqual(unmappedTrack.name);
         expect(mappedTrack.duration).toEqual(`${unmappedTrack.duration}.00`);
         expect(mappedTrack.uri)
@@ -114,9 +117,61 @@ describe('ProfileComponent', () => {
     });
   });
 
+  describe('Track Deletion', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
+
+      const unmappedTracks: any[] = [
+        {
+          id: 'EXAMPLE_ID_1',
+          title: 'EXAMPLE_TITLE_1',
+          duration: 1
+        },
+        {
+          id: 'EXAMPLE_ID_2',
+          title: 'EXAMPLE_TITLE_2',
+          duration: 2
+        }
+      ];
+      getTracksObserver.next(unmappedTracks);
+      getTracksObserver.complete();
+
+      fixture.detectChanges();
+    });
+
+    it('tells the trackClient to delete the emitted track', () => {
+      const trackComponents = _getTrackComponents();
+      trackComponents[1].deleteBtnClick.emit(trackComponents[1].track);
+      fixture.detectChanges();
+
+      expect(trackClientMock.delete)
+        .toHaveBeenCalledWith(trackComponents[1].track);
+    });
+
+    it('removes the deleted track from the list of tracks', () => {
+      const [
+        firstTrackComponent,
+        secondTrackComponent
+      ] = _getTrackComponents();
+      firstTrackComponent.deleteBtnClick.emit(firstTrackComponent.track);
+      fixture.detectChanges();
+
+      const trackComponents = _getTrackComponents();
+      expect(trackComponents.length).toEqual(1);
+      expect(profileComponent.tracks.length).toBe(1);
+      expect(trackComponents[0]).toBe(secondTrackComponent);
+    });
+  });
+
   function _stubGetTracks() {
     trackClientMock.getTracks.and.returnValue(new Observable(
       (observer) => getTracksObserver = observer
+    ));
+  }
+
+  function _stubDeleteTrack() {
+    trackClientMock.delete.and.returnValue(new Observable(
+      (observer) => deleteTrackObserver = observer
     ));
   }
 

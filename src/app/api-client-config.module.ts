@@ -9,7 +9,8 @@ import { environment } from 'src/environments/environment';
       useValue: {
         urls: {
           upload: 'http://localhost:8080/api/private/track',
-          getAllForUser: environment.API.TRACKS.GET_ALL_FOR_USER
+          getAllForUser: environment.API.TRACKS.GET_ALL_FOR_USER,
+          delete: (trackId: string) => `http://localhost:8080/api/private/track/${trackId}`
         }
       } as TrackClientConfig
     }

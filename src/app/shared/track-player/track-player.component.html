@@ -13,12 +13,22 @@
   </ng-container>
 
   <button
+    class="play-button"
     (click)="hanldePlayBtnClick()"
     (mouseover)="playButton.hovered = true"
     (mouseout)="playButton.hovered = false"
     #playButton>
     <hll-play-button *ngIf="!active" [invertColors]="active || playButton.hovered"></hll-play-button>
     <hll-pause-button *ngIf="active"></hll-pause-button>
+  </button>
+
+  <button
+    class="delete-button"
+    (click)="handleDeleteBtnClick()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16">
+      <path fill-rule="evenodd"
+        d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48L7.48 8z" />
+      </svg>
   </button>
 
   <div class="track-details">

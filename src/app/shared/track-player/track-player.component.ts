@@ -28,6 +28,7 @@ export class TrackPlayerComponent implements OnInit {
 
   @Input() track: Track;
   @Output() playBtnClick: EventEmitter<Track>;
+  @Output() deleteBtnClick: EventEmitter<Track>;
   selectedCharacterIndex: number;
 
   @ViewChild('audio')
@@ -38,6 +39,7 @@ export class TrackPlayerComponent implements OnInit {
     private audioPlayer: TrackPlayer
   ) {
     this.playBtnClick = new EventEmitter<Track>();
+    this.deleteBtnClick = new EventEmitter<Track>();
     this.active = false;
   }
 
@@ -58,6 +60,10 @@ export class TrackPlayerComponent implements OnInit {
 
   selectCurrentTime(mouseX: number, progressBar: DOMRect): void {
     this.audioPlayer.currentTime = (mouseX - progressBar.x) / progressBar.width;
+  }
+
+  handleDeleteBtnClick(): void {
+    this.deleteBtnClick.emit(this.track);
   }
 
   hanldePlayBtnClick(): void {

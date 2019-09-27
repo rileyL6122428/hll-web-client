@@ -14,11 +14,12 @@
     <a class="btn btn-dark new-track" [routerLink]="['/upload-track']">New Track</a>
   </div>
   <ul class="tracks">
-    <li class="track" *ngFor="let track of tracks">
+    <li class="track" *ngFor="let track of tracks; let index = index">
       <hll-track-player
         [track]="track"
         [active]="track === selected"
-        (playBtnClick)="handlePlayBtnClick($event)">
+        (playBtnClick)="handlePlayBtnClick($event)"
+        (deleteBtnClick)="handleDeleteBtnClick($event, index)">
 
       </hll-track-player>
     </li>

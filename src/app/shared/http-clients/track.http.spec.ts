@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TrackHttpClient, TrackClientConfig, trackClientConfigToken } from './track.http';
 import { AuthService } from '../auth/auth.service';
+import { Track } from '../track-player/track.api';
 
 describe('TrackHttpClient', () => {
 
@@ -20,7 +21,8 @@ describe('TrackHttpClient', () => {
           provide: trackClientConfigToken,
           useValue: {
             urls: {
-              upload: 'EXAMPLE_TRACK_UPLOAD_URL'
+              upload: 'EXAMPLE_TRACK_UPLOAD_URL',
+              delete: (id) => `EXAMPLE_TRACK_DELETION_URL/${id}`
             }
           }
         },
@@ -79,6 +81,61 @@ describe('TrackHttpClient', () => {
       const expected = testController.expectOne('EXAMPLE_TRACK_UPLOAD_URL');
       const headers = expected.request.headers;
       expect(headers.get('Authorization')).toEqual('Bearer EXAMPLE_ID_TOKEN');
+    });
+  });
+
+  describe('#delete', () => {
+
+    let track: Track;
+
+    beforeEach(() => {
+      track = {
+        id: 'EXAMPLE_TRACK_ID',
+        duration: '0',
+        title: 'EXAMPLE_TITLE',
+        uri: 'EXAMPLE_URI'
+      };
+    });
+
+    it('makes a delete request to the configured url', () => {
+      trackClient.delete(track).subscribe();
+      testController.expectOne({
+        method: 'DELETE',
+        url: config.urls.delete(track.id)
+      });
+    });
+
+    it('passes an Authorization header in the request', () => {
+      authServiceMock.idToken = 'EXAMPLE_ID_TOKEN';
+      trackClient.delete(track).subscribe();
+
+      const expected = testController.expectOne(config.urls.delete(track.id));
+      const headers = expected.request.headers;
+      expect(headers.get('Authorization')).toEqual('Bearer EXAMPLE_ID_TOKEN');
+    });
+
+    it('emits the unmapped, deleted track when successful', (done) => {
+      const responseTrack = {};
+
+      trackClient.delete(track).subscribe((emitted) => {
+        expect(emitted).toBe(responseTrack);
+        done();
+      });
+
+      const expected = testController.expectOne(config.urls.delete(track.id));
+      expected.flush({ track: responseTrack });
+    });
+
+    it('forwards an error when the request errors out', (done) => {
+      trackClient.delete(track).subscribe(() => {},
+      (error: ErrorEvent) => {
+        expect(error.message)
+          .toEqual('Http failure response for EXAMPLE_TRACK_DELETION_URL/EXAMPLE_TRACK_ID: 0 ');
+        done();
+      });
+
+      const expected = testController.expectOne(config.urls.delete(track.id));
+      expected.error(new ErrorEvent('EXAMPLE_ERROR'));
     });
   });
 });
