@@ -44,7 +44,6 @@ export class ProfileComponent implements OnInit {
   handleDeleteBtnClick(track: Track, trackIndex: number): void {
     this.trackClient.delete(track).subscribe();
     this.tracks.splice(trackIndex, 1);
-    console.log('sup!');
   }
 
   logout(): void {
