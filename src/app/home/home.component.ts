@@ -15,10 +15,6 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.forwardMobileLogin();
-  }
-
-  private forwardMobileLogin(): void {
     if (this.mobileAuth.isMobileLogin) {
       this.mobileAuth.login();
     }
