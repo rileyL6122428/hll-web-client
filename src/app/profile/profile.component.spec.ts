@@ -6,7 +6,7 @@ import { SiteLogoComponent } from '../shared/site-logo/site-logo.component';
 import { TrackPlayerComponent } from '../shared/track-player/track-player.component';
 import { AuthService } from '../shared/auth/auth.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TrackHttpClient } from '../shared/http-clients/track.http';
+import { TrackHttpClient } from 'hll-shared-client';
 import { Observer, Observable } from 'rxjs';
 import { By } from '@angular/platform-browser';
 
@@ -140,12 +140,16 @@ describe('ProfileComponent', () => {
     });
 
     it('tells the trackClient to delete the emitted track', () => {
+      authServiceMock.idToken = 'EXAMPLE_ID_TOKEN';
       const trackComponents = _getTrackComponents();
       trackComponents[1].deleteBtnClick.emit(trackComponents[1].track);
       fixture.detectChanges();
 
       expect(trackClientMock.delete)
-        .toHaveBeenCalledWith(trackComponents[1].track);
+        .toHaveBeenCalledWith({
+          track: trackComponents[1].track,
+          bearerToken: authServiceMock.idToken
+        });
     });
 
     it('removes the deleted track from the list of tracks', () => {

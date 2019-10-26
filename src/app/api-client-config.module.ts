@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { trackClientConfigToken, TrackClientConfig } from './shared/http-clients/track.http';
+// import { trackClientConfigToken, TrackClientConfig } from './shared/http-clients/track.http';
+import { trackClientConfigToken, TrackClientConfig } from 'hll-shared-client';
 import { environment } from 'src/environments/environment';
 
 @NgModule({

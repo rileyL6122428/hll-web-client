@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Track } from '../shared/track-player/track.api';
 import { AuthService } from '../shared/auth/auth.service';
-import { TrackHttpClient } from '../shared/http-clients/track.http';
+import { TrackHttpClient } from 'hll-shared-client';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -42,7 +42,8 @@ export class ProfileComponent implements OnInit {
   }
 
   handleDeleteBtnClick(track: Track, trackIndex: number): void {
-    this.trackClient.delete(track).subscribe();
+    const bearerToken = this.auth.idToken;
+    this.trackClient.delete({ track, bearerToken }).subscribe();
     this.tracks.splice(trackIndex, 1);
   }
 

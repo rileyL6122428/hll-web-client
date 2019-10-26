@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { TrackHttpClient } from '../shared/http-clients/track.http';
+import { TrackHttpClient } from 'hll-shared-client';
+import { AuthService } from '../shared/auth/auth.service';
 
 @Component({
   selector: 'hll-new-track',
@@ -16,7 +17,8 @@ export class NewTrackComponent {
 
   constructor(
     private router: Router,
-    private trackClient: TrackHttpClient
+    private trackClient: TrackHttpClient,
+    private auth: AuthService
   ) { }
 
   submit(): void {
@@ -25,11 +27,10 @@ export class NewTrackComponent {
     this.trackClient.upload({
       name: this.trackName,
       contents: this.trackContents,
+      bearerToken: this.auth.idToken
     })
       .subscribe(
-        () => {
-          this.router.navigateByUrl('/profile');
-        },
+        () => this.router.navigateByUrl('/profile'),
 
         (error) => {
           this.showUploadErrorMessage = true;
