@@ -1,6 +1,6 @@
 # Hey Look Listen Web Client
 
-A Zelda themed Angular web client used to stream and upload Mp3 files.
+A Zelda themed Angular web client used to stream and upload Mp3 files. Consumes the [Hey Look Listen API](https://github.com/rileyL6122428/hll-api).
 
 ## Screenshots
 
