@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'upload-track', component: NewTrackComponent },
   { path: 'error-403', component: Error403Component },
   { path: 'error-404', component: Error404Component },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'error-404' },
 ];
 

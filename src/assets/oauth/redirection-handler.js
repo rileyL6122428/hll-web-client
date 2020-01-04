@@ -2,14 +2,18 @@ document.addEventListener('DOMContentLoaded', function () {
   setTimeout(redirect, 2000);
 });
 
+function getProtocolAndHost() {
+  return window.location.protocol + "//" + window.location.host;
+}
+
 function redirect() {
   const authParams = getHashQueryParams();
   if (authParams) {
     addToSessionStorage(authParams);
     window.location.hash = '';
-    window.location.href = "http://localhost:4200/#/profile";
+    window.location.href = getProtocolAndHost() + "/#/profile";
   } else {
-    window.location.href = "http://localhost:4200/#/error-403";
+    window.location.href = getProtocolAndHost() + "/#/error-403";
   }
 }
 

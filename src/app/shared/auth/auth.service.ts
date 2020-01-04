@@ -12,7 +12,7 @@ export class AuthService {
     clientID: '8s0svZVEfS2xCNw82ivgGr3YFU4OQx7n',
     domain: 'dev-kfaat8-8.auth0.com',
     responseType: 'token id_token',
-    redirectUri: 'http://localhost:4200/assets/oauth/redirection-handler.html',
+    redirectUri: `${window.location.protocol}//${window.location.host}/assets/oauth/redirection-handler.html`,
     scope: 'openid profile'
   });
 
@@ -53,7 +53,7 @@ export class AuthService {
     this.idToken = '';
     this.expiresAt = 0;
     this.auth0.logout({
-      returnTo: 'http://localhost:4200/#/home'
+      returnTo: `${window.location.protocol}//${window.location.host}/#/home`
     });
   }
 
