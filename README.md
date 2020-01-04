@@ -6,7 +6,11 @@ A Zelda themed Angular client used to stream and upload Mp3 files.
 
 * **Home Page**
 
+![Home Page](/docs/pics/Profile-Page.png)
+
 * **Login Page (via Auth0)**
+
+Format: ![Login Page](/docs/pics/Login-Page.png)
 
 * **Profile Page**
 
