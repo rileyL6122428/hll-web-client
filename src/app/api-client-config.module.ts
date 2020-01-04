@@ -8,10 +8,10 @@ import { environment } from 'src/environments/environment';
       provide: trackClientConfigToken,
       useValue: {
         urls: {
-          upload: 'http://localhost:8080/api/private/track',
+          upload: `http://${environment.apiHost}/api/private/track`,
           getAllForUser: environment.API.TRACKS.GET_ALL_FOR_USER,
           delete(trackId: string) {
-            return `http://localhost:8080/api/private/track/${trackId}`;
+            return `http://${environment.apiHost}/api/private/track/${trackId}`;
           }
         }
       } as TrackClientConfig

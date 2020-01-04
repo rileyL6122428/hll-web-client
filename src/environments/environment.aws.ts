@@ -1,6 +1,6 @@
 import { HLLEnvironment } from './environment.interface';
 
-const apiHost = 'localhost:8080';
+const apiHost = 'ec2-52-14-189-224.us-east-2.compute.amazonaws.com:80';
 
 export const environment: HLLEnvironment = {
   production: false,
