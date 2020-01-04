@@ -1,6 +1,7 @@
 import { HLLEnvironment } from './environment.interface';
+import { hllApiHost } from './aws-hosts';
 
-const apiHost = 'localhost:8080';
+const apiHost = `${hllApiHost}:80`;
 
 export const environment: HLLEnvironment = {
   production: false,

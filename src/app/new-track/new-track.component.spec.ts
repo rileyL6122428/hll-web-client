@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MockComponent } from 'ng-mocks';
-import { TrackHttpClient } from '../shared/http-clients/track.http';
+import { TrackHttpClient } from 'hll-shared-client';
 import { LinkOpeningChestComponent } from '../shared/images/link-opening-chest/link-opening-chest.component';
 import { NewTrackComponent } from './new-track.component';
 import { AuthService } from '../shared/auth/auth.service';
@@ -33,6 +33,10 @@ describe('NewTrackComponent', () => {
         {
           provide: Router,
           useValue: jasmine.createSpyObj('Router', ['navigateByUrl'])
+        },
+        {
+          provide: AuthService,
+          useValue: { idToken: 'EXAMPLE_ID_TOKEN' }
         }
       ]
     })
@@ -80,6 +84,7 @@ describe('NewTrackComponent', () => {
       expect(trackClientMock.upload).toHaveBeenCalledWith({
         name: trackName,
         contents: trackContents,
+        bearerToken: 'EXAMPLE_ID_TOKEN'
       });
     });
 

@@ -10,11 +10,11 @@ import { HomeComponent } from './home/home.component';
 import { NewTrackComponent } from './new-track/new-track.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthModule } from './shared/auth/auth.module';
-import { HllHttpClientsModule } from './shared/http-clients/http-clients.module';
 import { ImagesModule } from './shared/images/images.module';
 import { SiteLogoComponent } from './shared/site-logo/site-logo.component';
 import { TrackPlayerComponent } from './shared/track-player/track-player.component';
 import { ApiClientConfigModule } from './api-client-config.module';
+import { HllApiModule } from 'hll-shared-client';
 
 @NgModule({
   imports: [
@@ -24,8 +24,8 @@ import { ApiClientConfigModule } from './api-client-config.module';
     AuthModule,
     BrowserAnimationsModule,
     FormsModule,
-    HllHttpClientsModule,
-    ApiClientConfigModule
+    ApiClientConfigModule,
+    HllApiModule
   ],
   declarations: [
     AppComponent,
