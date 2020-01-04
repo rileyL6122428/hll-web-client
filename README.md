@@ -1,6 +1,6 @@
-# HllWebClient
+# Hey Look Listen Web Client
 
-A Zelda themed Angular client used to stream and upload Mp3 files.
+A Zelda themed Angular web client used to stream and upload Mp3 files.
 
 ## Screenshots
 
